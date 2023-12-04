@@ -1,0 +1,5 @@
+@media only screen and (max-width: 325px) {
+    .CaptchaReloadImagePadding {
+        padding-top: 0 !important;
+    }
+}
