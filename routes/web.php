@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\allUsers\AllUsersController;
 use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
-use App\Http\Controllers\allUsers\channelPartner\ChannelPartnerController;
+use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,15 +64,16 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::get('search', [CompanyDetailsController::class, 'search'])->name('search');
     });
 
-    // Channel Partner
-    Route::group(['prefix' => 'channel-partner', 'namespace' => 'channelPartner', 'as' => 'channelPartner.'], function(){
-        Route::get('getall', [ChannelPartnerController::class, 'get_company_list'])->name('get_company_list');        
-        Route::post('insert', [ChannelPartnerController::class, 'insert'])->name('insert');
-        Route::get('edit/{id}', [ChannelPartnerController::class, 'edit'])->name('edit');
-        Route::put('update', [ChannelPartnerController::class, 'update'])->name('update');
-        Route::get('delete/{id}', [ChannelPartnerController::class, 'edit']);
-        Route::put('delete', [ChannelPartnerController::class, 'destroy'])->name('delete');
-        Route::get('search', [ChannelPartnerController::class, 'search'])->name('search');
+    // Buyer Master
+    Route::group(['prefix' => 'buyer-master', 'namespace' => 'BuyerMasters', 'as' => 'buyerMaster.'], function(){
+        // Route::get('/', [BuyerMasterController::class, 'list'])->name('list');        
+        Route::get('list', [BuyerMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [BuyerMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [BuyerMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [BuyerMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [BuyerMasterController::class, 'edit']);
+        Route::put('delete', [BuyerMasterController::class, 'destroy'])->name('delete');
+        Route::get('search', [BuyerMasterController::class, 'search'])->name('search');
     });
 
 });
