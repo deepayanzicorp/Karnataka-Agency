@@ -74,6 +74,10 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::get('delete/{id}', [BuyerMasterController::class, 'edit']);
         Route::put('delete', [BuyerMasterController::class, 'destroy'])->name('delete');
         Route::get('search', [BuyerMasterController::class, 'search'])->name('search');
+
+        // For Shipping
+        Route::get('listShipping', [BuyerMasterController::class, 'listShipping'])->name('listShipping');        
+        Route::post('insertShipping', [BuyerMasterController::class, 'insertShipping'])->name('insertShipping');
     });
 
 });

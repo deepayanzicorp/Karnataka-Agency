@@ -28,7 +28,7 @@ class CreateBuyerShippingAddressesTable extends Migration
 
             $table->string('shipping_contact_person_name')->nullable();
             $table->string('shipping_contact_person_email')->nullable();
-            $table->integer('shipping_contact_person_mobile')->length(10)->nullable();
+            $table->string('shipping_contact_person_mobile')->length(10)->nullable();
 
             $table->string('creator_id')->default('Admin');
             $table->dateTime('create_date_time');

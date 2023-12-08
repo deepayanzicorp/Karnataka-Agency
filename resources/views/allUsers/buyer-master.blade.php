@@ -30,7 +30,8 @@
                                             <th style="width: 60px;">Actions</th>
                                             <th>Buyer Name</th>
                                             <th>Short Name</th>
-                                            <th>Billing Address Line 1 + Country + State + Pin</th>
+                                            {{-- <th>Billing Address Line 1+ State + Pin + Country</th> --}}
+                                            <th>Complete Address</th>
                                             <th>GSTIN No</th>
                                             <th>GSTIN Treatment</th>
                                         </tr>
@@ -57,29 +58,29 @@
                                                         <div class="row">
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
-                                                                    <label for="sl_no">SL No</label>
+                                                                    <label for="">SL No</label>
                                                                     <input class="form-control form-control-sm" id="sl_no" name="sl_no" type="text" disabled>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="BuyerName">Buyer Name</label>
+                                                                    <label for="">Buyer Name</label>
                                                                     <input class="form-control form-control-sm" id="buyer_name" name="buyer_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="ShortName">Short Name</label>
+                                                                    <label for="">Short Name</label>
                                                                     <input class="form-control form-control-sm" id="short_name" name="short_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="State">State</label>
-                                                                    <select class="form-control-dropdown select2" id="state" name="state">
+                                                                    <label for="">State</label>
+                                                                    <select class="form-control-dropdown js-example-basic-single" id="state" name="state" style="width: 100%">
                                                                         <option value="">Select State</option>
                                                                         <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
                                                                         <option value="Arunachal Pradesh (AR)">Arunachal Pradesh (AR)</option>
@@ -124,28 +125,28 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="Address1">Billing Address Line1</label>
+                                                                    <label for="">Billing Address Line1</label>
                                                                     <textarea class="form-control form-control-sm" id="address1" name="address1" type="text" rows="2"></textarea>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="Address2">Billing Address Line2</label>
+                                                                    <label for="">Billing Address Line2</label>
                                                                     <textarea class="form-control form-control-sm" id="address2" name="address2" type="text" rows="2"></textarea>
                                                                 </div>
                                                             </div>                                                            
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label for="Country">Country</label>
+                                                                    <label for="">Country</label>
                                                                     <input class="form-control form-control-sm" id="country" name="country" type="text" value="India" disabled>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label for="PinCode">Pin Code</label>
+                                                                    <label for="">Pin Code</label>
                                                                     <input class="form-control form-control-sm" id="pinCode" name="pinCode" runat="server"
                                                                      maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                                 </div>
@@ -166,7 +167,7 @@
                                                             
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label for="ShortName">GSTIN No</label>
+                                                                    <label for="">GSTIN No</label>
                                                                     <input class="form-control form-control-sm" id="gstin_no" name="gstin_no" type="text" disabled>
                                                                 </div>
                                                             </div>
@@ -185,21 +186,21 @@
                                                         <div class="row mb-4">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label for="ContactName">Contact Person Name</label>
+                                                                    <label for="">Contact Person Name</label>
                                                                     <input class="form-control form-control-sm" id="contact_name" name="contact_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label for="ContactEmail">Contact Person email ID</label>
+                                                                    <label for="">Contact Person email ID</label>
                                                                     <input class="form-control form-control-sm" id="contact_email" name="contact_email" type="email">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label for="MobileNo">Contact Person Mobile No</label>
+                                                                    <label for="">Contact Person Mobile No</label>
                                                                     <input class="form-control form-control-sm" id="mobileNo" name="mobileNo" runat="server"
                                                                      maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                                 </div>
@@ -225,7 +226,6 @@
                         </div>
 
                         <!-- Bootstrap Modal for Buyer delete-->
-                        {{-- PENDING --}}
                         <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -496,8 +496,195 @@
                                 </div>
                             </div>
                         </div>                        
-                    </div> --}}
+                        </div> --}}
 
+                        <!-- Bootstrap Modal for Buyer Shipping list-->
+                        <div aria-hidden="true" aria-labelledby="listShippingModalLabel" class="modal fade" id="listShippingModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="">Shipping List</h5>
+                                        <button data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
+                                    </div>
+
+                                    <div class="modal-body modal-contentBG pt-0" id="listShippingDetailsForm">
+                                        <div class="row">
+                                            <button class="btn modalBtn d-flex align-items-center my-2" id="addShippingBtn" data-bs-target=#addShippingModal data-bs-toggle=modal>
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
+                                            </button>
+                                            <div class="table-responsive table-responsive-sm">
+                                                <table class="table table-bordered table-striped table-sm table-hover" id="tblDataShipping" style="width: 100%">
+                                                    <thead class="TableHeadTheme">
+                                                        <tr>
+                                                            <th style="width: 40px;">Actions</th>
+                                                            <th>Shipping Details</th>
+                                                            <th>Shipping Address1</th>
+                                                            <th>Shipping Address2</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bootstrap Modal for Buyer Shipping add or edit-->
+                        <div aria-hidden="true" aria-labelledby="addShippingModalLabel" class="modal fade" id="addShippingModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="">Manage Shipping Details</h5>
+                                        <button data-bs-dismiss="modal" type="button" onclick="closeAddShippingModalPopup()"><i class="fas fa-times"></i></button>
+                                    </div>
+
+                                    <div class="modal-body modal-contentBG" id="addShippingDetailsForm">
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Shipping Address Short Name</label>
+                                                    <input class="form-control form-control-sm" type="text" id="shipping_short_name" name="shipping_short_name">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Zone</label>
+                                                    <input class="form-control form-control-sm" id="shipping_zone" name="shipping_zone"
+                                                        maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Shipping Short Code</label>
+                                                    <input class="form-control form-control-sm" id="shipping_short_code" name="shipping_short_code"
+                                                        maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Shipping Party Code</label>
+                                                    <input class="form-control form-control-sm" id="shipping_party_code" name="shipping_party_code"
+                                                        maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Destination</label>
+                                                    <input class="form-control form-control-sm" type="text" id="shipping_destination" name="shipping_destination">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Place of Supply</label>
+                                                    <input class="form-control form-control-sm" type="text" id="shipping_place" name="shipping_place">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Address Line 1</label>
+                                                    <textarea class="form-control form-control-sm" id="shipping_address1" name="shipping_address1" type="text" rows="2"></textarea>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Address Line 2</label>
+                                                    <textarea class="form-control form-control-sm" id="shipping_address2" name="shipping_address2" type="text" rows="2"></textarea>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">State</label>
+                                                    <select class="form-control-dropdown js-example-basic-single" id="shipping_state" name="shipping_state" style="width: 100%">
+                                                        <option value="0">Select State</option>
+                                                        <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
+                                                        <option value="Arunachal Pradesh (AR)">Arunachal Pradesh (AR)</option>
+                                                        <option value="Assam (AS)">Assam (AS)</option>
+                                                        <option value="Bihar (BR)">Bihar (BR)</option>
+                                                        <option value="Chhattisgarh (CG)">Chhattisgarh (CG)</option>
+                                                        <option value="Goa (GA)">Goa (GA)</option>
+                                                        <option value="Gujarat (GJ)">Gujarat (GJ)</option>
+                                                        <option value="Haryana (HR)">Haryana (HR)</option>
+                                                        <option value="Himachal Pradesh (HP)">Himachal Pradesh (HP)</option>
+                                                        <option value="Jammu and Kashmir (JK)">Jammu and Kashmir (JK)</option>
+                                                        <option value="Jharkhand (JH)">Jharkhand (JH)</option>
+                                                        <option value="Karnataka (KA)">Karnataka (KA)</option>
+                                                        <option value="Kerala (KL)">Kerala (KL)</option>
+                                                        <option value="Madhya Pradesh (MP)">Madhya Pradesh (MP)</option>
+                                                        <option value="Maharashtra (MH)">Maharashtra (MH)</option>
+                                                        <option value="Manipur (MN)">Manipur (MN)</option>
+                                                        <option value="Meghalaya (ML)">Meghalaya (ML)</option>
+                                                        <option value="Mizoram (MZ)">Mizoram (MZ)</option>
+                                                        <option value="Nagaland (NL)">Nagaland (NL)</option>
+                                                        <option value="Orissa (OR)">Orissa (OR)</option>
+                                                        <option value="Punjab (PB)">Punjab (PB)</option>
+                                                        <option value="Rajasthan (RJ)">Rajasthan (RJ)</option>
+                                                        <option value="Sikkim (SK)">Sikkim (SK)</option>
+                                                        <option value="Tamil Nadu (TN)">Tamil Nadu (TN)</option>
+                                                        <option value="Tripura (TR)">Tripura (TR)</option>
+                                                        <option value="Uttarakhand (UK)">Uttarakhand (UK)</option>
+                                                        <option value="Uttar Pradesh (UP)">Uttar Pradesh (UP)</option>
+                                                        <option value="West Bengal (WB)">West Bengal (WB)</option>
+                                                        <option value="Tamil Nadu (TN)">Tamil Nadu (TN)</option>
+                                                        <option value="Tripura (TR)">Tripura (TR)</option>
+                                                        <option value="Andaman and Nicobar Islands (AN)">Andaman and Nicobar Islands (AN)</option>
+                                                        <option value="Chandigarh (CH)">Chandigarh (CH)</option>
+                                                        <option value="Dadra and Nagar Haveli (DH)">Dadra and Nagar Haveli (DH)</option>
+                                                        <option value="Daman and Diu (DD)">Daman and Diu (DD)</option>
+                                                        <option value="Delhi (DL)">Delhi (DL)</option>
+                                                        <option value="Lakshadweep (LD)">Lakshadweep (LD)</option>
+                                                        <option value="Pondicherry (PY)">Pondicherry (PY)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Contact Person Name</label>
+                                                    <input class="form-control form-control-sm" type="text" id="shipping_contact_person_name" name="shipping_contact_person_name">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Contact Person email ID</label>
+                                                    <input class="form-control form-control-sm" id="shipping_contact_person_email" name="shipping_contact_person_email" type="email">
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Contact Person Mobile No</label>
+                                                    <input class="form-control form-control-sm" id="shipping_contact_person_mobile" name="shipping_contact_person_mobile"
+                                                        maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 d-flex justify-content-between">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button" onclick="closeAddShippingModalPopup()">Cancel</button>
+                                                <button class="btn modalBtn" id="btnShippingUpdate" type="submit">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Update
+                                                </button>
+                                                <button class="btn modalBtn" id="btnListShippingAdd" type="submit">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
 
                         <!-- Bootstrap Modal for BuyerAddress delete-->
 
@@ -874,7 +1061,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div> --}}
+                        </div> --}}
 
                         <!-- Bootstrap Modal for editing Buyer entries -->
                         {{-- <div aria-hidden="true" aria-labelledby="editBuyerModalLabel" class="fade modal" id="editBuyerModal" tabindex=-1>
@@ -1240,7 +1427,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div> --}}
+                        </div> --}}
 
                     </div>
                 </div>
@@ -1252,7 +1439,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-
+            
             // Check validation
             function checkInputDataValidation(){
                 // Regular expression for email validation
@@ -1334,6 +1521,10 @@
             }
 
             // Select2 dropdown
+            $('#state').select2({
+                dropdownParent: $('#addDetailsModal')
+            });
+
             $('#gstin_treatment').select2({
                 dropdownParent: $('#addDetailsModal')
             });
@@ -1354,7 +1545,6 @@
                 $("#addDetailsModal").modal('show');
                 $('#btnAdd').show();
                 $('#btnUpdate').hide();
-                // event.preventDefault();
             });
 
             // To load DataTable
@@ -1380,10 +1570,12 @@
                                 return '<div class="d-flex">' +
                                     '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
                                     row.id + '"><i class="fas fa-solid fa-pen"></i></button>' +
+
                                     '<button type="button" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
                                     row.id +
                                     '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
-                                    '<button type="button" class="btn btn-outline-success btn-sm showShippingBtn" data-id="' +
+
+                                    '<button type="button" id="btnListShipping" class="btn btn-outline-success btn-sm showShippingBtn" data-id="' +
                                     row.id +
                                     '" style="margin-left: 10px;"><i class="fas fa-solid fa-address-book"></i></button>' +
                                     '</div>';
@@ -1399,7 +1591,10 @@
                             "data": null,
                             "render": function(data, type, row) {
                                 // Concatenate address1, country, state, and pinCode
-                                return row.buyer_address1 + ', ' + row.buyer_state + ', ' + row.buyer_pincode + ', ' + row.buyer_country;
+                                // return row.buyer_address1 + ', ' + row.buyer_state + ', ' + row.buyer_pincode + ', ' + row.buyer_country;
+                                return '<b>Address :</b> '+ row.buyer_address1 + 
+                                '<br/>  <b>State :</b> '+ row.buyer_state + ' <b>Pin :</b> ' + row.buyer_pincode +
+                                '<br/>  <b>Country :</b> ' + row.buyer_country;
                             }
                         },
                         {
@@ -1486,6 +1681,389 @@
                     return false;                    
                 }
             });
+
+            // Edit part
+            $('#tblData').on('click', '.editRecordBtn', function() {
+                // Retrieve the data-id attribute from the clicked button
+                var recordId = $(this).data('id');
+
+                // Perform actions with the recordId, for example, trigger an AJAX request to fetch the details for editing
+                console.log('Edit button clicked for record ID: ' + recordId);
+
+                // Add your logic here to handle the edit event.For example, you can open a modal with the details of the selected record for editing
+                $('#addDetailsModal').modal('show');
+                $('#btnAdd').hide();
+                $('#btnUpdate').show();
+
+                $.ajax({
+                    type: "GET",
+                    url: "buyer-master/edit/" + recordId,
+                    success: function(response) {
+                        $('#buyer_name').val(response.record.buyer_name);
+                        $('#short_name').val(response.record.buyer_short_name);
+                        $('#address1').val(response.record.buyer_address1);
+                        $('#address2').val(response.record.buyer_address2);
+                        $('#state').val(response.record.buyer_state);
+                        $('#country').val(response.record.buyer_country);
+                        $('#pinCode').val(response.record.buyer_pincode);
+                        $('#gstin_treatment').val(response.record.buyer_gstin);
+                        $('#gstin_no').val(response.record.buyer_gstin_no);
+                        $('#contact_name').val(response.record.buyer_contact_person_name);
+                        $('#contact_email').val(response.record.buyer_contact_person_email);
+                        $('#mobileNo').val(response.record.buyer_contact_person_mobile);
+                        $('#sl_no').val(response.record.id);
+                        console.log(response);
+                    }
+                });
+            });
+
+            $("#btnUpdate").click(function(event) {
+                event.preventDefault();
+
+                if(!checkInputDataValidation()) {
+                    return true;
+                } else {
+                    var f_buyer_name            = $('#buyer_name').val();
+                    var f_buyer_short_name      = $('#short_name').val();
+                    var f_buyer_address1        = $('#address1').val();
+                    var f_buyer_address2        = $('#address2').val();
+                    var f_buyer_state           = $('#state').val();
+                    var f_buyer_country         = $('#country').val();
+                    var f_buyer_pinCode         = $('#pinCode').val();
+                    var f_buyer_gstin_no        = $('#gstin_no').val();
+                    var f_buyer_gstin           = $('#gstin_treatment').val();
+                    var f_buyer_contact_name    = $('#contact_name').val();
+                    var f_buyer_contact_email   = $('#contact_email').val();
+                    var f_buyer_mobileNo        = $('#mobileNo').val();
+                    var f_sl_no                 = $('#sl_no').val();
+
+                    var dt = {
+                            a_buyer_name                    : f_buyer_name,
+                            a_buyer_short_name              : f_buyer_short_name,
+                            a_buyer_address1                : f_buyer_address1,
+                            a_buyer_address2                : f_buyer_address2,
+                            a_buyer_state                   : f_buyer_state,
+                            a_buyer_country                 : f_buyer_country,
+                            a_buyer_pinCode                 : f_buyer_pinCode,
+                            a_buyer_gstin_no                : f_buyer_gstin_no,
+                            a_buyer_gstin                   : f_buyer_gstin,
+                            a_buyer_contact_person_name     : f_buyer_contact_name,
+                            a_buyer_contact_person_email    : f_buyer_contact_email,
+                            a_buyer_contact_person_mobile   : f_buyer_mobileNo,
+                            a_sl_no                         : f_sl_no,
+                            _token                          : "{{ csrf_token() }}"
+                    }
+                    console.log(dt);
+                    $.ajax({
+                        type: 'put',
+                        data: dt,
+                        url: "{{ url('buyer-master/update') }}",
+                        success: function(response) {
+                            $('#addDetailsModal').modal('hide');
+                            loadDataTable();
+                            showSuccessMessage('Record is Updated.')
+                        },
+                        error: function(response) {
+                            console.log('Error:', response);
+                        }
+                    })
+                    return false;
+                }
+            })
+
+            // Delete part
+            $('#tblData').on('click', '.deleteRecordBtn', function() {
+                var recordId = $(this).data('id');
+                console.log('Delete button clicked for record ID: ' + recordId);
+                $('#deleteRecordModal').modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "buyer-master/delete/" + recordId,
+                    success: function(response) {
+                        console.log(response);
+                        $('#sl_no').val(response.record.id);
+                    }
+                });
+            });
+
+            $("#btnDelete").click(function(event) {
+                event.preventDefault();
+                var f_buyer_status = $('#buyer_status').val();
+                var f_sl_no = $('#sl_no').val();
+
+                var dt = {
+                    a_buyer_status: f_buyer_status,
+                    a_sl_no: f_sl_no,
+                    _token: "{{ csrf_token() }}"
+                }
+                // console.log(dt);
+                $.ajax({
+                    type: 'put',
+                    data: dt,
+                    url: "{{ url('buyer-master/delete') }}",
+                    success: function(response) {
+                        $('#deleteRecordModal').modal('hide');
+                        loadDataTable();
+                        showSuccessMessage('Record is Deleted.')
+                    },
+                    error: function(response) {
+                        console.log('Error:', response);
+                    }
+                })
+            })
+
+
+            // Buyer ADDRESS Part
+
+            // Check validation
+            function checkInputShippingDataValidation(){
+                
+                // Regular expression for email validation
+                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                let valShippingShortName            = $("#shipping_short_name").val();
+                let valShippingZone                 = $("#shipping_zone").val();
+                let valShippingShortCode            = $("#shipping_short_code").val();
+                let valShippingPartyCode            = $("#shipping_party_code").val();
+                let valShippingDestination          = $("#shipping_destination").val();
+                let valShippingPlace                = $("#shipping_place").val();
+                let valShippingAddress1             = $("#shipping_address1").val();
+                let valShippingAddress2             = $("#shipping_address2").val();
+                let valShippingState                = $("#shipping_state").val();
+                let valShippingContactPersonName    = $("#shipping_contact_person_name").val();
+                let valShippingContactPersonEmail   = $("#shipping_contact_person_email").val();
+                let valShippingContactPersonMobile  = $("#shipping_contact_person_mobile").val();
+   
+                if (valShippingShortName.length < 3 || valShippingShortName.length > 30) {
+                    $("#shipping_short_name").focus().select();
+                    showMessage('Shipping Short Name should be between 3 and 30 characters');                    
+                    return false;
+                }
+               
+                if (valShippingZone.length < 3 || valShippingZone.length > 10) {
+                    $("#shipping_zone").focus().select();                    
+                    showMessage('Shipping Zone should be between 3 and 10 digits')                    
+                    return false;
+                }
+
+                if (valShippingShortCode.length < 3 || valShippingShortCode.length > 30) {
+                    $("#shipping_short_code").focus().select();                    
+                    showMessage('Shipping Short Code should be between 3 and 30 digits')                    
+                    return false;
+                } 
+
+                if (valShippingPartyCode.length < 3 || valShippingPartyCode.length > 30) {
+                    $("#shipping_party_code").focus().select();                    
+                    showMessage('Party Code should be between 3 and 30 digits')                    
+                    return false;
+                }
+              
+                if (valShippingDestination.length < 3 || valShippingDestination.length > 30) {
+                    $("#shipping_destination").focus().select();                    
+                    showMessage('Shipping Destination should be between 3 and 30 characters')                    
+                    return false;
+                }
+                
+                if (valShippingDestination.length < 3 || valShippingDestination.length > 30) {
+                    $("#shipping_destination").focus().select();                    
+                    showMessage('Shipping Destination should be between 3 and 30 characters')                    
+                    return false;
+                }
+
+                if (valShippingPlace.length < 3 || valShippingPlace.length > 30) {
+                    $("#shipping_place").focus().select();                    
+                    showMessage('Shipping Place should be between 3 and 30 characters')                    
+                    return false;
+                }
+
+                if (valShippingAddress1.length < 3 || valShippingAddress1.length > 30) {
+                    $("#shipping_address1").focus().select();                    
+                    showMessage('Shipping Address1 should be between 3 and 30 characters')                    
+                    return false;
+                }
+
+                if (valShippingAddress2.length < 3 || valShippingAddress2.length > 30) {
+                    $("#shipping_address2").focus().select();                    
+                    showMessage('Shipping Address2 should be between 3 and 30 characters')                    
+                    return false;
+                }
+
+                if (valShippingState == 0) {
+                    $("#shipping_state").focus().select();                    
+                    showMessage('Select Shipping State')                    
+                    return false;
+                }                       
+
+                if (valShippingContactPersonName.length < 3 || valShippingContactPersonName.length > 30) {
+                    $("#shipping_contact_person_name").focus().select();
+                    showMessage('Shipping Contact Person Name should be between 3 and 30 characters');                    
+                    return false;
+                }
+
+                // Email validation
+                if (!emailRegex.test(valShippingContactPersonEmail)) {
+                    $("#shipping_contact_person_email").focus().select();                    
+                    showMessage('Email should be valid email')                    
+                    return false;
+                }
+
+                if (valShippingContactPersonMobile.length < 10) {
+                    $("#shipping_contact_person_mobile").focus().select();                    
+                    showMessage('Mobile number should be upto 10 digits')                    
+                    return false;
+                }     
+                return true;          
+            }
+
+            // To load Buyer Address list
+            $('#tblData').on('click', '.showShippingBtn', function() {
+                console.log('Shipping List');
+                $("#listShippingModal").modal('show');
+            });
+
+            // To load Buyer Address add & edit forms  
+            $('#addShippingBtn').on('click', function() {
+                // $("#listShippingModal").modal('hide');
+                $("#addShippingModal").modal('show');
+                $('#btnListShippingAdd').show();
+                $('#btnShippingUpdate').hide();
+            });
+
+            // Select2 dropdown
+            $('#shipping_state').select2({
+                dropdownParent: $('#addShippingModal')
+            });
+
+            // To load DataTable Buyer Address
+            loadDataTableShipping();
+
+            // Initialize DataTable Buyer Address with pagination and AJAX
+            function loadDataTableShipping() {
+                // Destroy existing DataTable instance, if any
+                if ($.fn.DataTable.isDataTable('#tblDataShipping')) {
+                    $('#tblDataShipping').DataTable().destroy();
+                }
+
+                $('#tblDataShipping').DataTable({
+                    "paging": true,
+                    "pageLength": 10,
+                    "ajax": {
+                        "url": "buyer-master/listShipping",
+                        "dataSrc": "list"
+                    },
+                    "columns": [{
+                            "data": null,
+                            "render": function(data, type, row) {
+                                return '<div class="d-flex">' +
+                                    '<button type="button" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
+                                    row.id + '"><i class="fas fa-solid fa-pen"></i></button>' +
+
+                                    '<button type="button" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
+                                    row.id +
+                                    '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
+                                    '</div>';
+                            }
+                        },
+                        {
+                            "data": null,
+                            "render": function(data, type, row) {
+                                // Concatenate address1, country, state, and pinCode
+                                // return row.shipping_short_name + ', ' + row.shipping_zone + ', ' + row.shipping_short_code + ', ' + row.shipping_party_code + ', '
+                                    //    + row.shipping_destination + ', ' + row.shipping_place ;
+
+                                return '<b>Name :</b> '        + row.shipping_short_name + 
+                                '<br/> <b>Zone :</b> '         + row.shipping_zone + 
+                                '<br/> <b>Short Code :</b> '   + row.shipping_short_code +
+                                '<br/> <b>Party Code :</b> '   + row.shipping_party_code +
+                                '<br/> <b>Destination :</b> '  + row.shipping_destination +
+                                '<br/> <b>Place :</b> '        + row.shipping_place ;
+                            }
+                        },
+                        {
+                            "data": "shipping_address1"
+                        },
+                        {
+                            "data": "shipping_address2"
+                        }
+                        // Add more columns as needed
+                    ],
+
+                    // Language option for customizing text
+                    "language": {
+                        "zeroRecords": "No data available in table"
+                    }
+                });
+            }
+
+            // Insert part
+            $("#btnListShippingAdd").click(function(event) {
+                event.preventDefault();
+                console.log('Shipping Add');
+                
+                if(!checkInputShippingDataValidation()){
+                    return true;
+                }else{
+                    var f_shipping_short_name               = $('#shipping_short_name').val();
+                    var f_shipping_zone                     = $('#shipping_zone').val();
+                    var f_shipping_short_code               = $('#shipping_short_code').val();
+                    var f_shipping_party_code               = $('#shipping_party_code').val();
+                    var f_shipping_destination              = $('#shipping_destination').val();
+                    var f_shipping_place                    = $('#shipping_place').val();
+                    var f_shipping_address1                 = $('#shipping_address1').val();
+                    var f_shipping_address2                 = $('#shipping_address2').val();
+                    var f_shipping_state                    = $('#shipping_state').val();
+                    var f_shipping_contact_person_name      = $('#shipping_contact_person_name').val();
+                    var f_shipping_contact_person_email     = $('#shipping_contact_person_email').val();
+                    var f_shipping_contact_person_mobile    = $('#shipping_contact_person_mobile').val();
+                    var f_sl_no= $('#sl_no').val();
+
+                    var dt = {
+                            a_shipping_short_name               : f_shipping_short_name,
+                            a_shipping_zone                     : f_shipping_zone,
+                            a_shipping_short_code               : f_shipping_short_code,
+                            a_shipping_party_code               : f_shipping_party_code,
+                            a_shipping_destination              : f_shipping_destination,
+                            a_shipping_place                    : f_shipping_place,
+                            a_shipping_address1                 : f_shipping_address1,
+                            a_shipping_address2                 : f_shipping_address2,
+                            a_shipping_state                    : f_shipping_state,
+                            a_shipping_contact_person_name      : f_shipping_contact_person_name,
+                            a_shipping_contact_person_email     : f_shipping_contact_person_email,
+                            a_shipping_contact_person_mobile    : f_shipping_contact_person_mobile,
+                            a_sl_no: f_sl_no,
+                            _token: "{{ csrf_token() }}"
+                    }
+                    console.log(dt);
+                    $.ajax({
+                        type: 'post',
+                        data: dt,
+                        url: "{{ url('buyer-master/insertShipping') }}",
+
+                        success: function(response) {
+                            $('#addShippingModal').modal('hide');
+                            $("#listShippingModal").modal('show');
+                            // $('body').removeClass('modal-open');
+                            // $('.modal-backdrop').remove();
+                            loadDataTableShipping();
+                            showSuccessMessage('Record is Inserted.')
+                        },
+                        error: function(response) {
+                            console.log('Error:', response);
+                        }
+                    })
+                    return false;                    
+                }                
+            });
+
         });
+    </script>
+
+    <script>
+        // Function to close the second popup and return to the first popup
+        function closeAddShippingModalPopup() {
+            $('#addShippingModal').modal('hide'); // Close the second popup
+            $('#listShippingModal').modal('show'); // Show the first popup
+        }
     </script>
 @endsection
