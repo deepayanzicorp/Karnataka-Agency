@@ -16,6 +16,7 @@ class CreateBuyerShippingAddressesTable extends Migration
         Schema::create('buyer_shipping_addresses', function (Blueprint $table) {
             $table->id();
             $table->string('shipping_short_name');
+            $table->unsignedBigInteger('buyer_id');
             $table->string('shipping_zone')->nullable();
             $table->string('shipping_short_code')->nullable();
             $table->string('shipping_party_code')->nullable();
@@ -38,6 +39,8 @@ class CreateBuyerShippingAddressesTable extends Migration
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
+
+            $table->foreign('buyer_id')->references('id')->on('buyer_contact_details')->onDelete('cascade');
         });
     }
 

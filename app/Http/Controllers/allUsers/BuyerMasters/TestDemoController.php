@@ -5,11 +5,6 @@ namespace App\Http\Controllers\allUsers\BuyerMasters;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-// Facades
-use Auth, Cookie, Hash, Mail, Redirect, Carbon;
-
-// Fetch Request Validations
-
 // Fetch Models
 use App\Models\User;
 use App\Models\Role;
@@ -18,9 +13,9 @@ use App\Models\PageAuthorization;
 use App\Models\BuyerContactDetail;
 use App\Models\BuyerShippingAddress;
 
-class BuyerMasterController extends Controller
+class TestDemoController extends Controller
 {
-    
+    //
     /*______________________________________________________________________
         
         # Display Record in list                         
@@ -36,22 +31,7 @@ class BuyerMasterController extends Controller
         return $data;
     }
 
-    public function listShipping(Request $request){
-        // Retrieve records based on the row ID
-        $rowId = $request->buyerid_shipping;
-        $modelObj   = new BuyerShippingAddress;
-        $queryObj   = $modelObj::where(array('shipping_status' => 'Active', 'buyer_id' => $rowId));
-
-        $data = [];
-
-        if($queryObj->count() > 0){
-            $arrDetails     = $queryObj->get()->toArray();
-            $data['shippinglist']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
-        }
-        return $data;
-
-
-        /*
+    public function listShipping(Request $request){/*
         $modelObj   = new BuyerShippingAddress;
         $data       = array();
         $buyerIdShipping = $request->input('buyer_id');
@@ -64,13 +44,12 @@ class BuyerMasterController extends Controller
         return $data;
         */
 
-        // return response()->json(['records' => $data]);
-        // Replace 'row_id_column' with the actual column name in your table
-        // $records = BuyerShippingAddress::where(array('shipping_status' => 'Active', 'buyer_id' => $rowId))->get(); // Replace 'row_id_column' with the actual column name in your table
+        // Retrieve records based on the row ID
+        $rowId = $request->input('buyer_id');
+        $records = BuyerShippingAddress::where(array('shipping_status' => 'Active', 'buyer_id' => $rowId))->get(); // Replace 'row_id_column' with the actual column name in your table
 
-        //return $records;
         // Return the records as JSON response
-        // return response()->json(['records' => $records]);
+        return response()->json(['records' => $records]);
 
         // if($records->count() > 0){
         //     $arrDetails     = $records->get()->toArray();
@@ -138,7 +117,7 @@ class BuyerMasterController extends Controller
             'shipping_address1'                 => $request->a_shipping_address1,
             'shipping_address2'                 => $request->a_shipping_address2,
             'shipping_state'                    => $request->a_shipping_state,
-            'buyer_id'                          => $request->a_buyer_id_shipp,
+            'buyer_id'                          => $request->a_buyer_add_id,
 
             'shipping_contact_person_name'      => $request->a_shipping_contact_person_name,
             'shipping_contact_person_email'     => $request->a_shipping_contact_person_email,
@@ -248,7 +227,7 @@ class BuyerMasterController extends Controller
             'shipping_address1'                 => $request->a_shipping_address1,
             'shipping_address2'                 => $request->a_shipping_address2,
             'shipping_state'                    => $request->a_shipping_state,
-            // 'buyer_id'                          => $request->a_buyer_id_shipp,
+            'buyer_id'                          => $request->a_buyer_add_id,
 
             'shipping_contact_person_name'      => $request->a_shipping_contact_person_name,
             'shipping_contact_person_email'     => $request->a_shipping_contact_person_email,
@@ -259,7 +238,7 @@ class BuyerMasterController extends Controller
 
         ];
 
-        $edit = BuyerShippingAddress::where('id', $request->a_sl_no_buyer_ship)->update($update);
+        $edit = BuyerShippingAddress::where('id', $request->a_sl_no)->update($update);
 
         if($edit){
             $response = [

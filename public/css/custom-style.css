@@ -18,6 +18,11 @@
 
 .modal-header{background-color: var(--primaryColor);}
 
+.modalHeaderCustom{
+    align-items: center;
+    padding: 0 16px;
+}
+
 .modal-contentBG{background-color: var(--secondaryColor);}
 
 .modalBtn{
@@ -26,7 +31,14 @@
     border: none;
 }
 
-.modalBtn:active, .modalBtn:hover{
+.modalBtn1{
+    background-color: var(--primaryColor);
+    color: var(--fontColor);
+    border: 1px solid var(--fontColor);
+}
+
+.modalBtn:active, .modalBtn:hover
+.modalBtn1:active, .modalBtn1:hover{
     background-color: var(--primaryColorHover);
 }
 

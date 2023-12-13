@@ -41,7 +41,7 @@
                             </div>
                         </div>
 
-                        <!-- Bootstrap Modal for Buyer add or edit-->
+                        {{-- <!-- Bootstrap Modal for Buyer add or edit-->
                         <div aria-hidden="true" aria-labelledby="addAgentModalLabel" class="modal fade" id="addDetailsModal" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -58,28 +58,28 @@
                                                         <div class="row">
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
-                                                                    <label>SL No</label>
+                                                                    <label for="">SL No</label>
                                                                     <input class="form-control form-control-sm" id="sl_no_buyer" name="sl_no_buyer" type="text" disabled>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Buyer Name</label>
+                                                                    <label for="">Buyer Name</label>
                                                                     <input class="form-control form-control-sm" id="buyer_name" name="buyer_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label>Short Name</label>
+                                                                    <label for="">Short Name</label>
                                                                     <input class="form-control form-control-sm" id="short_name" name="short_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label>State</label>
+                                                                    <label for="">State</label>
                                                                     <select class="form-control-dropdown js-example-basic-single form-control-sm" id="state" name="state" style="width: 100%; font-size: 14px;">
                                                                         <option value="0">Select State</option>
                                                                         <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
@@ -125,28 +125,28 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Billing Address Line1</label>
+                                                                    <label for="">Billing Address Line1</label>
                                                                     <textarea class="form-control form-control-sm" id="address1" name="address1" type="text" rows="2"></textarea>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Billing Address Line2 (Optional)</label>
+                                                                    <label for="">Billing Address Line2 (Optional)</label>
                                                                     <textarea class="form-control form-control-sm" id="address2" name="address2" type="text" rows="2"></textarea>
                                                                 </div>
                                                             </div>                                                            
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label>Country</label>
+                                                                    <label for="">Country</label>
                                                                     <input class="form-control form-control-sm" id="country" name="country" type="text" value="India" disabled>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <label>Pin Code</label>
+                                                                    <label for="">Pin Code</label>
                                                                     <input class="form-control form-control-sm" id="pinCode" name="pinCode" runat="server"
                                                                      maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                                 </div>
@@ -154,7 +154,7 @@
 
                                                             <div class=col-md-4>
                                                                 <div class="form-group">
-                                                                    <label>GSTIN Treatment</label>
+                                                                    <label for="">GSTIN Treatment</label>
                                                                     <div>
                                                                         <select class="form-control-dropdown js-example-basic-single form-control-sm" id="gstin_treatment" name="gstin_treatment" style="width: 100%">
                                                                             <option value="0">--Choose--</option>
@@ -167,7 +167,7 @@
                                                             
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>GSTIN No</label>
+                                                                    <label for="">GSTIN No</label>
                                                                     <input class="form-control form-control-sm" id="gstin_no" name="gstin_no" type="text" maxlength="15" disabled>
                                                                 </div>
                                                             </div>
@@ -186,21 +186,21 @@
                                                         <div class="row mb-4">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Contact Person Name</label>
+                                                                    <label for="">Contact Person Name</label>
                                                                     <input class="form-control form-control-sm" id="contact_name" name="contact_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Contact Person email ID</label>
+                                                                    <label for="">Contact Person email ID</label>
                                                                     <input class="form-control form-control-sm" id="contact_email" name="contact_email" type="email">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Contact Person Mobile No</label>
+                                                                    <label for="">Contact Person Mobile No</label>
                                                                     <input class="form-control form-control-sm" id="mobileNo" name="mobileNo" runat="server"
                                                                      maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                                 </div>
@@ -243,33 +243,27 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <!-- Bootstrap Modal for Buyer Shipping list-->
                         <div aria-hidden="true" aria-labelledby="listShippingModalLabel" class="modal fade" id="listShippingModal" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header modalHeaderCustom">
+                                    <div class="modal-header">
                                         <h5 class="modal-title" id="">Shipping List</h5>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn modalBtn1 d-flex align-items-center my-2" id="addShippingBtn" data-bs-target=#addShippingModal data-bs-toggle=modal>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
-                                            </button>
-                                            <button data-bs-dismiss="modal" type="button" style="height: fit-content; margin-left: 10px;"><i class="fas fa-times"></i></button>                                            
-                                        </div>
-                                        
+                                        <button data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
                                     </div>
 
-                                    <div class="modal-body modal-contentBG" id="listShippingDetailsForm">
+                                    <div class="modal-body modal-contentBG pt-0" id="listShippingDetailsForm">
                                         <div class="row">
-                                            {{-- <button class="btn modalBtn d-flex align-items-center my-2" id="addShippingBtn" data-bs-target=#addShippingModal data-bs-toggle=modal>
+                                            <button class="btn modalBtn d-flex align-items-center my-2" id="addShippingBtn" data-bs-target=#addShippingModal data-bs-toggle=modal>
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
-                                            </button> --}}
-                                            <div class="col-md-12" hidden>
+                                            </button>
+                                            <div class="col-md-12" >
                                                 <div class="form-group">
-                                                    <label>Buyer ID</label>
-                                                    <input class="form-control form-control-sm" id="buyer_id" name="buyer_id" type="text" disabled>
+                                                    <label for="">Buyer ID</label>
+                                                    <input class="form-control form-control-sm" id="buyer_id" name="buyer_id" type="text" value="SDSD">
                                                 </div>
                                             </div>
                                             <div class="table-responsive table-responsive-sm">
@@ -291,6 +285,38 @@
                             </div>
                         </div>
 
+                        {{-- Another ex of shipping --}}
+                        {{-- <div class="modal fade" id="listShippingModal" tabindex="-1" role="dialog" aria-labelledby="listShippingModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="listShippingModalLabel">List Shipping</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- DataTable HTML -->
+                                        <table id="shippingTable" class="display">
+                                            <thead>
+                                                <tr>
+                                                    <th>Shipping Short Name</th>
+                                                    <th>Shipping Zone</th>
+                                                    <!-- Add more headers as needed -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Data will be dynamically added here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+
                         <!-- Bootstrap Modal for Buyer Shipping add or edit-->
                         <div aria-hidden="true" aria-labelledby="addShippingModalLabel" class="modal fade" id="addShippingModal" tabindex="-1">
                             <div class="modal-dialog modal-lg">
@@ -304,27 +330,27 @@
                                         <div class="row mb-4">
                                             <div class="col-md-12" hidden>
                                                 <div class="form-group">
-                                                    <label>SL No</label>
+                                                    <label for="">SL No</label>
                                                     <input class="form-control form-control-sm" id="sl_no_buyer_ship" name="sl_no_buyer_ship" type="text" disabled>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12" hidden>
+                                            <div class="col-md-12" >
                                                 <div class="form-group">
-                                                    <label>Buyer ID</label>
-                                                    <input class="form-control form-control-sm" id="buyer_id_shipp" name="buyer_id_shipp" type="text" disabled>
+                                                    <label for="">Buyer ID</label>
+                                                    <input class="form-control form-control-sm" id="buyer_add_id" name="buyer_add_id" type="text">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Shipping Address Short Name</label>
+                                                    <label for="">Shipping Address Short Name</label>
                                                     <input class="form-control form-control-sm" type="text" id="shipping_short_name" name="shipping_short_name">
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Zone</label>
+                                                    <label for="">Zone</label>
                                                     <input class="form-control form-control-sm" id="shipping_zone" name="shipping_zone"
                                                         maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                 </div>
@@ -332,7 +358,7 @@
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Shipping Short Code</label>
+                                                    <label for="">Shipping Short Code</label>
                                                     <input class="form-control form-control-sm" id="shipping_short_code" name="shipping_short_code"
                                                         maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                 </div>
@@ -340,7 +366,7 @@
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Shipping Party Code</label>
+                                                    <label for="">Shipping Party Code</label>
                                                     <input class="form-control form-control-sm" id="shipping_party_code" name="shipping_party_code"
                                                         maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                 </div>
@@ -348,35 +374,35 @@
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Destination</label>
+                                                    <label for="">Destination</label>
                                                     <input class="form-control form-control-sm" type="text" id="shipping_destination" name="shipping_destination">
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Place of Supply</label>
+                                                    <label for="">Place of Supply</label>
                                                     <input class="form-control form-control-sm" type="text" id="shipping_place" name="shipping_place">
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Address Line 1</label>
+                                                    <label for="">Address Line 1</label>
                                                     <textarea class="form-control form-control-sm" id="shipping_address1" name="shipping_address1" type="text" rows="2"></textarea>
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Address Line 2</label>
+                                                    <label for="">Address Line 2</label>
                                                     <textarea class="form-control form-control-sm" id="shipping_address2" name="shipping_address2" type="text" rows="2"></textarea>
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>State</label>
+                                                    <label for="">State</label>
                                                     <select class="form-control-dropdown js-example-basic-single" id="shipping_state" name="shipping_state" style="width: 100%">
                                                         <option value="0">Select State</option>
                                                         <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
@@ -422,21 +448,21 @@
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Contact Person Name</label>
+                                                    <label for="">Contact Person Name</label>
                                                     <input class="form-control form-control-sm" type="text" id="shipping_contact_person_name" name="shipping_contact_person_name">
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Contact Person email ID</label>
+                                                    <label for="">Contact Person email ID</label>
                                                     <input class="form-control form-control-sm" id="shipping_contact_person_email" name="shipping_contact_person_email" type="email">
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Contact Person Mobile No</label>
+                                                    <label for="">Contact Person Mobile No</label>
                                                     <input class="form-control form-control-sm" id="shipping_contact_person_mobile" name="shipping_contact_person_mobile"
                                                         maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, ''); ">
                                                 </div>
@@ -656,9 +682,9 @@
                     ],
 
                     // Language option for customizing text
-                    "language": {
-                        "zeroRecords": "No data available in table"
-                    }
+                    // "language": {
+                    //     "zeroRecords": "No data available in table"
+                    // }
                 });
             }            
 
@@ -966,16 +992,87 @@
                 return true;          
             }
 
-            
+            // To load Buyer Address list
+            $('#tblData').on('click', '.showShippingBtn', function() {
+                $("#listShippingModal").modal('show');
+                let bId = $(this).data('id');
+                console.log('Buyer Id = ' +$(this).data('id'));
+
+                $('#buyer_id').val(bId);
+
+                /*$.ajax({
+                    url: "buyer-master/listShipping",
+                    method: 'GET',
+                    data: {buyer_id: bId},
+                    dataType: 'json',
+                    success: function (response) {
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                }); */
+
+               /* // Test
+                $('#buyer_id').on('input', function () {
+                    var rowId = $('#buyer_id').val();
+
+                    // Make AJAX request to fetch records
+                    $.ajax({
+                        url: "buyer-master/listShipping",
+                        method: 'GET',
+                        data: {buyer_id: rowId},
+                        dataType: 'json',
+                        success: function (response) {
+                            // Handle the response (update UI, etc.)
+                            console.log(response.records);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+                // 
+                */
+
+                $.ajax({
+                    type: "GET",
+                    url: "buyer-master/listShipping",
+                    success: function(response) {
+                        var tr = '';
+                        for (var i = 0; i < response.list.length; i++) {
+                            $('#agentTableBody').append(
+                                '<tr>' +
+                                '<td style="text-align:center;">' +
+                                '    <div class="d-flex justify-content-between">' +
+                                '        <button type="button" id="editCompanyDetailsBtn" value="' +
+                                response.list[i].id +
+                                '" class="btn btn-outline-primary btn-sm editRecordBtn" style="font-size: 12px;"><i class="fas fa-solid fa-pen"></i></button>' +
+                                '        <button type="button" value="' + response.list[i].id +
+                                '" class="btn btn-outline-danger btn-sm deleteRecordBtn" style="font-size: 12px;"><i class="fas fa-solid fa-trash"></i></button>' +
+                                '    </div>' +
+                                '</td>' +
+                                '<td>' + response.list[i].shipping_short_name + '</td>' +
+                                '<td>' + response.list[i].shipping_contact_person_email + '</td>' +
+                                '<td>' + response.list[i].shipping_address1 + '</td>' +
+                                '<td>' + response.list[i].shipping_address2 + '</td>' +
+                                // Add more cells for other columns as needed
+                                '</tr>'
+                            );
+                        }
+                    },
+                    error: function(response) {
+                        console.log('Error:', response);
+                    }
+                });
+            });
 
             // To load Buyer Address add & edit forms  
             $('#addShippingBtn').on('click', function() {
                 $("#addShippingModal").modal('show');
                 $('#btnShippingAdd').show();
                 $('#btnShippingUpdate').hide();
-                console.log('Buyer Id = ' +$('#buyer_id').val());
-                // $('#buyer_id').val(buyerId);
-                $('#buyer_id_shipp').val($('#buyer_id').val());
+                // console.log('Buyer Id = ' +buyerId);
+                $('#buyer_add_id').val(buyerId);
             });
 
             // Select2 dropdown
@@ -990,18 +1087,17 @@
                 if ($.fn.DataTable.isDataTable('#tblDataShipping')) {
                     $('#tblDataShipping').DataTable().destroy();
                 }
-
+                
                 $('#tblDataShipping').DataTable({
                     "paging": true,
                     "pageLength": 10,
                     "ajax": {
-                        "data":{buyerid_shipping: $('#buyer_id').val()},
                         "url": "buyer-master/listShipping",
-                        "dataSrc": "shippinglist"
+                        "dataSrc": "list"
                     },
                     "columns": [{
-                            "data": null,
-                            "render": function(data, type, row) {
+                        "data": null,
+                        "render": function(data, type, row) {
                             return '<div class="d-flex">' +
                                 '<button type="button" class="btn btn-outline-primary btn-sm editShippingRecordBtn" data-id="' +
                                 row.id + '"><i class="fas fa-solid fa-pen"></i></button>' +
@@ -1015,6 +1111,10 @@
                         {
                             "data": null,
                             "render": function(data, type, row) {
+                                // Concatenate address1, country, state, and pinCode
+                                // return row.shipping_short_name + ', ' + row.shipping_zone + ', ' + row.shipping_short_code + ', ' + row.shipping_party_code + ', '
+                                    //    + row.shipping_destination + ', ' + row.shipping_place ;
+
                                 return '<b>Name :</b> '        + row.shipping_short_name + 
                                 '<br/> <b>Zone :</b> '         + row.shipping_zone + 
                                 '<br/> <b>Short Code :</b> '   + row.shipping_short_code +
@@ -1031,7 +1131,7 @@
                         }
                         // Add more columns as needed
                     ],
-
+                    
                     // Language option for customizing text
                     // "language": {
                     //     "zeroRecords": "No data available in table"
@@ -1040,17 +1140,7 @@
             }
             
             // To load DataTable Buyer Address
-            //loadDataTableShipping();
-
-            // To load Buyer Address list
-            $('#tblData').on('click', '.showShippingBtn', function() {
-                $("#listShippingModal").modal('show');
-                let bId = $(this).data('id');
-                console.log('Buyer Id = ' +$(this).data('id'));
-
-                $('#buyer_id').val(bId);
-                loadDataTableShipping();
-            });
+            loadDataTableShipping();
             
             // Insert part Buyer Address
             $("#btnShippingAdd").click(function(event) {
@@ -1073,7 +1163,7 @@
                     var f_shipping_contact_person_email     = $('#shipping_contact_person_email').val();
                     var f_shipping_contact_person_mobile    = $('#shipping_contact_person_mobile').val();
                     var f_sl_no                             = $('#sl_no_buyer_ship').val();
-                    var f_buyer_id_shipp                    = buyerId;
+                    var f_buyer_add_id                      = buyerId;
 
                     var dt = {
                         a_shipping_short_name               : f_shipping_short_name,
@@ -1089,7 +1179,7 @@
                         a_shipping_contact_person_email     : f_shipping_contact_person_email,
                         a_shipping_contact_person_mobile    : f_shipping_contact_person_mobile,
                         a_sl_no                             : f_sl_no,
-                        a_buyer_id_shipp                    : f_buyer_id_shipp,
+                        a_buyer_add_id                      : f_buyer_add_id,
                         _token                              : "{{ csrf_token() }}"
                     }
                     console.log(dt);
@@ -1117,8 +1207,7 @@
             // Edit part Buyer Address
             $('#tblDataShipping').on('click', '.editShippingRecordBtn', function() {
                 var recordId = $(this).data('id');
-                // var recordId = $('#buyer_id').val();
-                console.log('Edit button clicked for record ID: ' + recordId);
+                // console.log('Edit button clicked for record ID: ' + recordId);
 
                 $('#addShippingModal').modal('show');
                 $('#btnShippingAdd').hide();
@@ -1137,14 +1226,11 @@
                         $('#shipping_address1').val(response.record.shipping_address1);
                         $('#shipping_address2').val(response.record.shipping_address2);
                         $('#shipping_state').val(response.record.shipping_state).trigger('change');
-
                         $('#shipping_contact_person_name').val(response.record.shipping_contact_person_name);
                         $('#shipping_contact_person_email').val(response.record.shipping_contact_person_email);
                         $('#shipping_contact_person_mobile').val(response.record.shipping_contact_person_mobile);
                         $('#sl_no_buyer_ship').val(response.record.id);
-
-                        $('#buyer_id_shipp').val($('#buyer_id').val());
-                        // console.log(response);  
+                        // console.log(response);
                     }
                 });
             });
@@ -1167,7 +1253,7 @@
                     var f_shipping_contact_person_name      = $('#shipping_contact_person_name').val();
                     var f_shipping_contact_person_email     = $('#shipping_contact_person_email').val();
                     var f_shipping_contact_person_mobile    = $('#shipping_contact_person_mobile').val();
-                    var f_sl_no_buyer_ship                  = $('#sl_no_buyer_ship').val();
+                    var f_sl_no                             = $('#sl_no_buyer_ship').val();
 
                     var dt = {
                         a_shipping_short_name               : f_shipping_short_name,
@@ -1182,7 +1268,7 @@
                         a_shipping_contact_person_name      : f_shipping_contact_person_name,
                         a_shipping_contact_person_email     : f_shipping_contact_person_email,
                         a_shipping_contact_person_mobile    : f_shipping_contact_person_mobile,
-                        a_sl_no_buyer_ship                  : f_sl_no_buyer_ship,
+                        a_sl_no                             : f_sl_no,
                         _token                              : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
@@ -1207,7 +1293,7 @@
             // Delete part Buyer Address
             $('#tblDataShipping').on('click', '.deleteShippingRecordBtn', function() {
                 var recordId = $(this).data('id');
-                console.log('Delete button clicked for record ID: ' + recordId);
+                // console.log('Delete button clicked for record ID: ' + recordId);
                 $('#deleteRecordShippingModal').modal('show');
 
                 $.ajax({

@@ -152,11 +152,18 @@ class AllUsersController extends Controller
                     //                     ->get();
                     // $data['arrPageMaster'] = $arrPageMaster;
 
-                    // ForTEMPORARY ALL OPTIONS
+                    /*// For TEMPORARY ALL OPTIONS
                     $pg = new PageMaster;
                     $qry= $pg::where('page_status', 'Active');
                     $arrPageMaster = $qry->get()->toArray();
-                    $data['arrPageMaster'] = $arrPageMaster;
+                    $data['arrPageMaster'] = $arrPageMaster; */
+
+                    // Based on Role Pages will be seen in left sidebar
+                    $arrPageMaster = User::select('page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
+                                    ->join('page_authorizations', 'page_authorizations.role_id', '=', 'users.role_id')
+                                    ->join('page_masters', 'page_masters.id', '=', 'page_authorizations.page_id')
+                                    ->where(array('page_masters.page_status' => 'Active'))
+                                    ->get();
                 }
                 return view($data['entity'] . '.dashboard', $data);
             }

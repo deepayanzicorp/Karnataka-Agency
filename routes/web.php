@@ -6,6 +6,9 @@ use App\Http\Controllers\allUsers\AllUsersController;
 use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 
+
+use App\Http\Controllers\allUsers\BuyerMasters\TestDemoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +81,14 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         // For Shipping
         Route::get('listShipping', [BuyerMasterController::class, 'listShipping'])->name('listShipping');        
         Route::post('insertShipping', [BuyerMasterController::class, 'insertShipping'])->name('insertShipping');
+        Route::get('editShipping/{id}', [BuyerMasterController::class, 'editShipping'])->name('editShipping');
+        Route::put('updateShipping', [BuyerMasterController::class, 'updateShipping'])->name('updateShipping');
+        Route::get('deleteShipping/{id}', [BuyerMasterController::class, 'editShipping']);
+        Route::put('deleteShipping', [BuyerMasterController::class, 'destroyShipping'])->name('deleteShipping');
+
+
+        
+        // Route::get('listShipping', [TestDemoController::class, 'listShipping'])->name('listShipping'); 
     });
 
 });
