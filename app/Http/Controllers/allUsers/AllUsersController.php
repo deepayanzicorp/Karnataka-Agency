@@ -140,30 +140,14 @@ class AllUsersController extends Controller
 
                 if($query->count()  > 0){ 
                     $userDetail     = $query->first()->toArray(); 
-                    // echo '<pre>'; print_r($userDetail); die();
-                    $data['userDetail'] = $userDetail;
-
-                    // Using join method display sidebar data
-                    // $roleId         = $userDetail['role_id']; // Change this to the desired role ID
-                    // $arrPageMaster  = Role::select('roles.name', 'page_authorizations.role_id', 'page_authorizations.page_id', 'page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
-                    //                     ->leftJoin('page_authorizations', 'page_authorizations.role_id', '=', 'roles.id')
-                    //                     ->leftJoin('page_masters', 'page_authorizations.page_id', '=', 'page_masters.id')
-                    //                     ->where('roles.id', $roleId)
-                    //                     ->get();
-                    // $data['arrPageMaster'] = $arrPageMaster;
-
-                    /*// For TEMPORARY ALL OPTIONS
-                    $pg = new PageMaster;
-                    $qry= $pg::where('page_status', 'Active');
-                    $arrPageMaster = $qry->get()->toArray();
-                    $data['arrPageMaster'] = $arrPageMaster; */
+                    $data['userDetail'] = $userDetail;  // echo '<pre>'; print_r($userDetail); die();
 
                     // Based on Role Pages will be seen in left sidebar
-                    $arrPageMaster = User::select('page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
-                                    ->join('page_authorizations', 'page_authorizations.role_id', '=', 'users.role_id')
-                                    ->join('page_masters', 'page_masters.id', '=', 'page_authorizations.page_id')
-                                    ->where(array('page_masters.page_status' => 'Active'))
+                    $arrPageMaster = PageMaster::select('page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
+                                    ->LEFTJOIN('page_authorizations', 'page_authorizations.page_id', '=', 'page_masters.id')
+                                    ->where(array('page_masters.page_status' => 'Active', 'page_authorizations.role_id' => $userDetail['role_id']))
                                     ->get();
+                    $data['arrPageMaster'] = $arrPageMaster;  
                 }
                 return view($data['entity'] . '.dashboard', $data);
             }
@@ -207,11 +191,10 @@ class AllUsersController extends Controller
 
                     // Using join method display sidebar data
                     $roleId         = $userDetail['role_id']; 
-                    $arrPageMaster  = Role::select('roles.name', 'page_authorizations.role_id', 'page_authorizations.page_id', 'page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
-                                        ->leftJoin('page_authorizations', 'page_authorizations.role_id', '=', 'roles.id')
-                                        ->leftJoin('page_masters', 'page_authorizations.page_id', '=', 'page_masters.id')
-                                        ->where('roles.id', $roleId)
-                                        ->get();
+                    $arrPageMaster  = PageMaster::select('page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
+                                    ->LEFTJOIN('page_authorizations', 'page_authorizations.page_id', '=', 'page_masters.id')
+                                    ->where(array('page_masters.page_status' => 'Active', 'page_authorizations.role_id' => $roleId))
+                                    ->get();
                     $data['arrPageMaster'] = $arrPageMaster;
                 }
                 return view($data['entity'] . '.company-details', $data);

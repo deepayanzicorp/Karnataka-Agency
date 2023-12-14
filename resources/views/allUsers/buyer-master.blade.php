@@ -29,11 +29,8 @@
                                         <tr>
                                             <th style="width: 60px;">Actions</th>
                                             <th>Buyer Name</th>
-                                            <th>Short Name</th>
-                                            {{-- <th>Billing Address Line 1+ State + Pin + Country</th> --}}
                                             <th>Complete Address</th>
                                             <th>GSTIN No</th>
-                                            <th>GSTIN Treatment</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -278,8 +275,8 @@
                                                         <tr>
                                                             <th style="width: 40px;">Actions</th>
                                                             <th>Shipping Details</th>
+                                                            <th>Zonal Details</th>
                                                             <th>Shipping Address1</th>
-                                                            <th>Shipping Address2</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -363,14 +360,14 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Address Line 1</label>
-                                                    <textarea class="form-control form-control-sm" id="shipping_address1" name="shipping_address1" type="text" rows="2"></textarea>
+                                                    <textarea class="form-control form-control-sm" id="shipping_address1" name="shipping_address1" type="text" rows="2" maxlength="150"></textarea>
                                                 </div>
                                             </div>
         
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Address Line 2</label>
-                                                    <textarea class="form-control form-control-sm" id="shipping_address2" name="shipping_address2" type="text" rows="2"></textarea>
+                                                    <textarea class="form-control form-control-sm" id="shipping_address2" name="shipping_address2" type="text" rows="2" maxlength="100"></textarea>
                                                 </div>
                                             </div>
         
@@ -505,15 +502,15 @@
                 let valGstinNo      = $("#gstin_no").val();
                 let valGstinTreatment= $("#gstin_treatment").val();
    
-                if (valBuyerName.length < 3 || valBuyerName.length > 30) {
+                if (valBuyerName.length < 3 || valBuyerName.length > 250) {
                     $("#buyer_name").focus().select();
-                    showMessage('Buyer Name should be between 3 and 30 characters');                    
+                    showMessage('Buyer Name should be between 3 and 250 characters');                    
                     return false;
                 }
                
-                if (valShortName.length < 3 || valShortName.length > 10) {
+                if (valShortName.length < 3 || valShortName.length > 100) {
                     $("#short_name").focus().select();                    
-                    showMessage('Short Name should be between 3 and 10 characters')                    
+                    showMessage('Short Name should be between 3 and 100 characters')                    
                     return false;
                 }
 
@@ -547,9 +544,9 @@
                     }  
                 }                              
 
-                if (valContactName.length < 3 || valContactName.length > 30) {
+                if (valContactName.length < 3 || valContactName.length > 250) {
                     $("#contact_name").focus().select();
-                    showMessage('Contact Name should be between 3 and 30 characters');                    
+                    showMessage('Contact Name should be between 3 and 250 characters');                    
                     return false;
                 }
 
@@ -616,7 +613,7 @@
                             "data": null,
                             "render": function(data, type, row) {
                                 buyerId = row.id; // Store the buyer id in a variable
-                                return '<div class="d-flex">' +
+                               /* return '<div class="d-flex">' +
                                     '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
                                     buyerId + '">'+ row.id +'<i class="fas fa-solid fa-pen"></i>'+buyerId+'</button>' +
 
@@ -627,14 +624,27 @@
                                     '<button type="button" id="btnListShipping" class="btn btn-outline-success btn-sm showShippingBtn" data-id="' +
                                     buyerId +
                                     '" style="margin-left: 10px;">'+ row.id +'<i class="fas fa-solid fa-address-book"></i>'+buyerId+'</button>' +
+                                    '</div>'; */
+
+                                    return '<div class="d-flex">' +
+                                    '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
+                                    buyerId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+
+                                    '<button type="button" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
+                                    buyerId +
+                                    '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
+
+                                    '<button type="button" id="btnListShipping" class="btn btn-outline-success btn-sm showShippingBtn" data-id="' +
+                                    buyerId +
+                                    '" style="margin-left: 10px;"><i class="fas fa-solid fa-address-book"></i></button>' +
                                     '</div>';
                             }
                         },
                         {
-                            "data": "buyer_name"
-                        },
-                        {
-                            "data": "buyer_short_name"
+                            "data": null,
+                            "render": function(data, type, row) {
+                                return row.buyer_name + '<br/>[' + row.buyer_short_name + ']' ;
+                            }
                         },
                         {
                             "data": null,
@@ -648,9 +658,6 @@
                         },
                         {
                             "data": "buyer_gstin_no"
-                        },
-                        {
-                            "data": "buyer_gstin"
                         }
                         // Add more columns as needed
                     ],
@@ -885,9 +892,9 @@
                 let valShippingContactPersonEmail   = $("#shipping_contact_person_email").val();
                 let valShippingContactPersonMobile  = $("#shipping_contact_person_mobile").val();
    
-                if (valShippingShortName.length < 3 || valShippingShortName.length > 30) {
+                if (valShippingShortName.length < 3 || valShippingShortName.length > 250) {
                     $("#shipping_short_name").focus().select();
-                    showMessage('Shipping Short Name should be between 3 and 30 characters');                    
+                    showMessage('Shipping Short Name should be between 3 and 250 characters');                    
                     return false;
                 }
                
@@ -927,15 +934,15 @@
                     return false;
                 }
 
-                if (valShippingAddress1.length < 3 || valShippingAddress1.length > 100) {
+                if (valShippingAddress1.length < 3 || valShippingAddress1.length >= 150) {
                     $("#shipping_address1").focus().select();                    
-                    showMessage('Shipping Address1 should be between 3 to 100 characters')                    
+                    showMessage('Shipping Address1 should be between 3 to 150 characters')                    
                     return false;
                 }
 
-                if (valShippingAddress2.length < 3 || valShippingAddress2.length > 100) {
+                if (valShippingAddress2.length >= 100) {
                     $("#shipping_address2").focus().select();                    
-                    showMessage('Shipping Address2 should be between 3 to 100 characters')                    
+                    showMessage('Shipping Address2 maximum upto 100 characters')                    
                     return false;
                 }
 
@@ -945,9 +952,9 @@
                     return false;
                 }                       
 
-                if (valShippingContactPersonName.length < 3 || valShippingContactPersonName.length > 30) {
+                if (valShippingContactPersonName.length < 3 || valShippingContactPersonName.length > 250) {
                     $("#shipping_contact_person_name").focus().select();
-                    showMessage('Shipping Contact Person Name should be between 3 and 30 characters');                    
+                    showMessage('Shipping Contact Person Name should be between 3 and 250 characters');                    
                     return false;
                 }
 
@@ -966,8 +973,6 @@
                 return true;          
             }
 
-            
-
             // To load Buyer Address add & edit forms  
             $('#addShippingBtn').on('click', function() {
                 $("#addShippingModal").modal('show');
@@ -982,8 +987,7 @@
             $('#shipping_state').select2({
                 dropdownParent: $('#addShippingModal')
             });
-
-            
+           
             // Initialize DataTable Buyer Address with pagination and AJAX
             function loadDataTableShipping() {
                 // Destroy existing DataTable instance, if any
@@ -1015,20 +1019,31 @@
                         {
                             "data": null,
                             "render": function(data, type, row) {
-                                return '<b>Name :</b> '        + row.shipping_short_name + 
-                                '<br/> <b>Zone :</b> '         + row.shipping_zone + 
-                                '<br/> <b>Short Code :</b> '   + row.shipping_short_code +
-                                '<br/> <b>Party Code :</b> '   + row.shipping_party_code +
+                                return '<b>Name :</b> '        + row.shipping_short_name +                                
                                 '<br/> <b>Destination :</b> '  + row.shipping_destination +
                                 '<br/> <b>Place :</b> '        + row.shipping_place ;
                             }
                         },
                         {
-                            "data": "shipping_address1"
+                            "data": null,
+                            "render": function(data, type, row) {
+                                return '<b>Zone :</b> '        + row.shipping_zone + 
+                                '<br/> <b>Short Code :</b> '   + row.shipping_short_code +
+                                '<br/> <b>Party Code :</b> '   + row.shipping_party_code ;
+                            }
                         },
                         {
-                            "data": "shipping_address2"
+                            "data": null,
+                            "render": function(data, type, row) {
+                                return row.shipping_address1 + '<br/>' + row.shipping_address2 ;
+                            }
                         }
+                        // {
+                        //     "data": "shipping_address1"
+                        // },
+                        // {
+                        //     "data": "shipping_address2"
+                        // }
                         // Add more columns as needed
                     ],
 

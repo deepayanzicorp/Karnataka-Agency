@@ -238,6 +238,11 @@ class BuyerMasterController extends Controller
 
     public function updateShipping(Request $request){
         $nowTime    = Carbon::now();
+
+        if(empty($request->a_shipping_address2)){
+            $request->a_shipping_address2 = '';
+        }
+        
         $update     = [
             'shipping_short_name'               => $request->a_shipping_short_name,
             'shipping_zone'                     => $request->a_shipping_zone,

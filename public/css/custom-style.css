@@ -47,6 +47,19 @@
     padding-bottom: 10px;
 }
 
+/* table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled){
+    text-align: center;
+}
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td{
+    text-align: center;
+} */
+
+#tblData td {
+    vertical-align: middle;
+    text-align: justify;
+}
+
 /* Left Sidebar */
 .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active{
     background-color: var(--primaryColor);

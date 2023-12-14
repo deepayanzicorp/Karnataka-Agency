@@ -7,7 +7,7 @@ use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 
 
-use App\Http\Controllers\allUsers\BuyerMasters\TestDemoController;
+use App\Http\Controllers\allUsers\TestDemoController;
 
 /*
 |--------------------------------------------------------------------------
