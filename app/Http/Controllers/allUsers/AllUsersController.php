@@ -290,12 +290,11 @@ class AllUsersController extends Controller
                     $userDetail     = $query->first()->toArray(); 
                     $data['userDetail'] = $userDetail;
 
-                    // Using join method display sidebar data
+                    // Based on Role Pages will be seen in left sidebar
                     $roleId         = $userDetail['role_id']; 
-                    $arrPageMaster  = Role::select('roles.name', 'page_authorizations.role_id', 'page_authorizations.page_id', 'page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
-                                        ->leftJoin('page_authorizations', 'page_authorizations.role_id', '=', 'roles.id')
-                                        ->leftJoin('page_masters', 'page_authorizations.page_id', '=', 'page_masters.id')
-                                        ->where('roles.id', $roleId)
+                    $arrPageMaster  = PageMaster::select('page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
+                                        ->LEFTJOIN('page_authorizations', 'page_authorizations.page_id', '=', 'page_masters.id')
+                                        ->where(array('page_masters.page_status' => 'Active', 'page_authorizations.role_id' => $roleId))
                                         ->get();
                     $data['arrPageMaster'] = $arrPageMaster;
                 }

@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\allUsers\AllUsersController;
 use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
+use App\Http\Controllers\allUsers\SellerMasters\SellerMasterController;
 
 
-use App\Http\Controllers\allUsers\TestDemoController;
+// use App\Http\Controllers\allUsers\TestDemoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -86,9 +88,27 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::get('deleteShipping/{id}', [BuyerMasterController::class, 'editShipping']);
         Route::put('deleteShipping', [BuyerMasterController::class, 'destroyShipping'])->name('deleteShipping');
 
-
         
         // Route::get('listShipping', [TestDemoController::class, 'listShipping'])->name('listShipping'); 
+    });
+
+    // Seller Master
+    Route::group(['prefix' => 'seller-master', 'namespace' => 'SellerMasters', 'as' => 'sellerMaster.'], function(){
+        Route::get('list', [SellerMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [SellerMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [SellerMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [SellerMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [SellerMasterController::class, 'edit']);
+        Route::put('delete', [SellerMasterController::class, 'destroy'])->name('delete');
+        Route::get('search', [SellerMasterController::class, 'search'])->name('search');
+
+        // For Shipping
+        Route::get('listShipping', [SellerMasterController::class, 'listShipping'])->name('listShipping');        
+        Route::post('insertShipping', [SellerMasterController::class, 'insertShipping'])->name('insertShipping');
+        Route::get('editShipping/{id}', [SellerMasterController::class, 'editShipping'])->name('editShipping');
+        Route::put('updateShipping', [SellerMasterController::class, 'updateShipping'])->name('updateShipping');
+        Route::get('deleteShipping/{id}', [SellerMasterController::class, 'editShipping']);
+        Route::put('deleteShipping', [SellerMasterController::class, 'destroyShipping'])->name('deleteShipping');
     });
 
 });

@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\allUsers\BuyerMasters;
+namespace App\Http\Controllers\allUsers\SellerMasters;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 // Facades
-use Auth, Cookie, Hash, Mail, Redirect, Carbon;
-
-// Fetch Request Validations
+use Carbon;
 
 // Fetch Models
 use App\Models\User;
 use App\Models\Role;
 use App\Models\PageMaster;
 use App\Models\PageAuthorization;
-use App\Models\BuyerContactDetail;
-use App\Models\BuyerShippingAddress;
+use App\Models\SellerContactDetail;
+use App\Models\SellerShippingAddress;
 
-class BuyerMasterController extends Controller
+class SellerMasterController extends Controller
 {
-    
     /*______________________________________________________________________
         
         # Display Record in list                         
     ______________________________________________________________________*/
 
     public function list(Request $request){
-        $modelObj   = new BuyerContactDetail;
-        $queryObj   = $modelObj::where('buyer_status', 'Active');
+        $modelObj   = new SellerContactDetail;
+        $queryObj   = $modelObj::where('seller_status', 'Active');
         if($queryObj->count() > 0){
             $arrDetails     = $queryObj->get()->toArray();
             $data['list']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
@@ -38,9 +35,9 @@ class BuyerMasterController extends Controller
 
     public function listShipping(Request $request){
         // Retrieve records based on the row ID
-        $rowId = $request->buyerid_shipping;
-        $modelObj   = new BuyerShippingAddress;
-        $queryObj   = $modelObj::where(array('shipping_status' => 'Active', 'buyer_id' => $rowId));
+        $rowId = $request->seller_id_shipp;
+        $modelObj   = new SellerShippingAddress;
+        $queryObj   = $modelObj::where(array('shipping_status' => 'Active', 'seller_id' => $rowId));
 
         $data = [];
 
@@ -49,34 +46,6 @@ class BuyerMasterController extends Controller
             $data['shippinglist']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
         }
         return $data;
-
-
-        /*
-        $modelObj   = new BuyerShippingAddress;
-        $data       = array();
-        $buyerIdShipping = $request->input('buyer_id');
-        echo 'BuyerId= '.$buyerIdShipping; die();
-        $queryObj   = $modelObj::where(array('shipping_status' => 'Active', 'buyer_id' => $buyerIdShipping));
-        if($queryObj->count() > 0){
-            $arrDetails     = $queryObj->get()->toArray();
-            $data['list']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
-        }
-        return $data;
-        */
-
-        // return response()->json(['records' => $data]);
-        // Replace 'row_id_column' with the actual column name in your table
-        // $records = BuyerShippingAddress::where(array('shipping_status' => 'Active', 'buyer_id' => $rowId))->get(); // Replace 'row_id_column' with the actual column name in your table
-
-        //return $records;
-        // Return the records as JSON response
-        // return response()->json(['records' => $records]);
-
-        // if($records->count() > 0){
-        //     $arrDetails     = $records->get()->toArray();
-        //     $data['list']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
-        // }
-        // return $data;
     }
 
     /*______________________________________________________________________
@@ -87,19 +56,19 @@ class BuyerMasterController extends Controller
     public function insert(Request $request){
         $nowTime    = Carbon::now();
         $insert     = [
-            'buyer_name'                    => $request->a_buyer_name,
-            'buyer_short_name'              => $request->a_buyer_short_name,
-            'buyer_address1'                => $request->a_buyer_address1,
-            'buyer_address2'                => $request->a_buyer_address2,
-            'buyer_state'                   => $request->a_buyer_state,
-            'buyer_country'                 => $request->a_buyer_country,
-            'buyer_pincode'                 => $request->a_buyer_pinCode,
-            'buyer_gstin_no'                => $request->a_buyer_gstin_no,
-            'buyer_gstin'                   => $request->a_buyer_gstin,
+            'seller_name'                   => $request->a_seller_name,
+            'seller_short_name'             => $request->a_seller_short_name,
+            'seller_address1'               => $request->a_seller_address1,
+            'seller_address2'               => $request->a_seller_address2,
+            'seller_state'                  => $request->a_seller_state,
+            'seller_country'                => $request->a_seller_country,
+            'seller_pincode'                => $request->a_seller_pinCode,
+            'seller_gstin_no'               => $request->a_seller_gstin_no,
+            'seller_gstin'                  => $request->a_seller_gstin,
 
-            'buyer_contact_person_name'     => $request->a_buyer_contact_person_name,
-            'buyer_contact_person_email'    => $request->a_buyer_contact_person_email,
-            'buyer_contact_person_mobile'   => $request->a_buyer_contact_person_mobile,
+            'seller_contact_person_name'    => $request->a_seller_contact_person_name,
+            'seller_contact_person_email'   => $request->a_seller_contact_person_email,
+            'seller_contact_person_mobile'  => $request->a_seller_contact_person_mobile,
 
             'create_date_time'              => $nowTime,
             'modify_date_time'              => $nowTime,    
@@ -107,7 +76,7 @@ class BuyerMasterController extends Controller
             'updated_at'                    => $nowTime 
         ];
 
-        $add = BuyerContactDetail::create($insert);
+        $add = SellerContactDetail::create($insert);
 
         if($add){
             $response = [
@@ -125,9 +94,14 @@ class BuyerMasterController extends Controller
             return $response;
         }
     }
-  
+
     public function insertShipping(Request $request){
         $nowTime    = Carbon::now();
+
+        if(empty($request->a_shipping_address2)){
+            $request->a_shipping_address2 = '';
+        }
+
         $insert     = [
             'shipping_short_name'               => $request->a_shipping_short_name,
             'shipping_zone'                     => $request->a_shipping_zone,
@@ -138,7 +112,7 @@ class BuyerMasterController extends Controller
             'shipping_address1'                 => $request->a_shipping_address1,
             'shipping_address2'                 => $request->a_shipping_address2,
             'shipping_state'                    => $request->a_shipping_state,
-            'buyer_id'                          => $request->a_buyer_id_shipp,
+            'seller_id'                         => $request->a_seller_id_shipp,
 
             'shipping_contact_person_name'      => $request->a_shipping_contact_person_name,
             'shipping_contact_person_email'     => $request->a_shipping_contact_person_email,
@@ -150,7 +124,7 @@ class BuyerMasterController extends Controller
             'updated_at'                        => $nowTime 
         ];
 
-        $add = BuyerShippingAddress::create($insert);
+        $add = SellerShippingAddress::create($insert);
 
         if($add){
             $response = [
@@ -175,7 +149,7 @@ class BuyerMasterController extends Controller
     ______________________________________________________________________*/
 
     public function edit($id){
-        $record = BuyerContactDetail::find($id); //echo "<pre>"; print_r($record); die();
+        $record = SellerContactDetail::find($id); //echo "<pre>"; print_r($record); die();
         return response()->json([
             'status' => 200,
             'record' => $record,
@@ -183,7 +157,7 @@ class BuyerMasterController extends Controller
     }
 
     public function editShipping($id){
-        $record = BuyerShippingAddress::find($id); //echo "<pre>"; print_r($record); die();
+        $record = SellerShippingAddress::find($id); //echo "<pre>"; print_r($record); die();
         return response()->json([
             'status' => 200,
             'record' => $record,
@@ -198,26 +172,26 @@ class BuyerMasterController extends Controller
     public function update(Request $request){
         $nowTime    = Carbon::now();
         $update     = [
-            'buyer_name'                    => $request->a_buyer_name,
-            'buyer_short_name'              => $request->a_buyer_short_name,
-            'buyer_address1'                => $request->a_buyer_address1,
-            'buyer_address2'                => $request->a_buyer_address2,
-            'buyer_state'                   => $request->a_buyer_state,
-            'buyer_country'                 => $request->a_buyer_country,
-            'buyer_pincode'                 => $request->a_buyer_pinCode,
-            'buyer_gstin_no'                => $request->a_buyer_gstin_no,
-            'buyer_gstin'                   => $request->a_buyer_gstin,
+            'seller_name'                    => $request->a_seller_name,
+            'seller_short_name'              => $request->a_seller_short_name,
+            'seller_address1'                => $request->a_seller_address1,
+            'seller_address2'                => $request->a_seller_address2,
+            'seller_state'                   => $request->a_seller_state,
+            'seller_country'                 => $request->a_seller_country,
+            'seller_pincode'                 => $request->a_seller_pinCode,
+            'seller_gstin_no'                => $request->a_seller_gstin_no,
+            'seller_gstin'                   => $request->a_seller_gstin,
 
-            'buyer_contact_person_name'     => $request->a_buyer_contact_person_name,
-            'buyer_contact_person_email'    => $request->a_buyer_contact_person_email,
-            'buyer_contact_person_mobile'   => $request->a_buyer_contact_person_mobile,
+            'seller_contact_person_name'     => $request->a_seller_contact_person_name,
+            'seller_contact_person_email'    => $request->a_seller_contact_person_email,
+            'seller_contact_person_mobile'   => $request->a_seller_contact_person_mobile,
 
             'modify_date_time'              => $nowTime,     
             'updated_at'                    => $nowTime 
 
         ];
 
-        $edit = BuyerContactDetail::where('id', $request->a_sl_no)->update($update);
+        $edit = SellerContactDetail::where('id', $request->a_sl_no)->update($update);
 
         if($edit){
             $response = [
@@ -253,7 +227,6 @@ class BuyerMasterController extends Controller
             'shipping_address1'                 => $request->a_shipping_address1,
             'shipping_address2'                 => $request->a_shipping_address2,
             'shipping_state'                    => $request->a_shipping_state,
-            // 'buyer_id'                          => $request->a_buyer_id_shipp,
 
             'shipping_contact_person_name'      => $request->a_shipping_contact_person_name,
             'shipping_contact_person_email'     => $request->a_shipping_contact_person_email,
@@ -264,7 +237,7 @@ class BuyerMasterController extends Controller
 
         ];
 
-        $edit = BuyerShippingAddress::where('id', $request->a_sl_no_buyer_ship)->update($update);
+        $edit = SellerShippingAddress::where('id', $request->a_sl_no_seller_ship)->update($update);
 
         if($edit){
             $response = [
@@ -291,10 +264,10 @@ class BuyerMasterController extends Controller
     public function destroy(Request $request){ 
         $nowTime    = Carbon::now();        
         $update     = [
-            'buyer_status' => 'Inactive'
+            'seller_status' => 'Inactive'
         ];
 
-        $delete = BuyerContactDetail::where('id', $request->a_sl_no)->update($update);
+        $delete = SellerContactDetail::where('id', $request->a_sl_no)->update($update);
 
         if($delete){
             $response = [
@@ -319,7 +292,7 @@ class BuyerMasterController extends Controller
             'shipping_status'=> 'Inactive'
         ];
 
-        $delete = BuyerShippingAddress::where('id', $request->a_sl_no)->update($update);
+        $delete = SellerShippingAddress::where('id', $request->a_sl_no)->update($update);
 
         if($delete){
             $response = [
