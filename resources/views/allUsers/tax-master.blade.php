@@ -130,8 +130,8 @@
             
             // Check validation
             function checkInputDataValidation(){
-                let valTaxName= $("#tax_name").val();
-                let valTaxRate= $("#tax_rate").val();
+                let valTaxName  = $("#tax_name").val();
+                let valTaxRate  = $("#tax_rate").val();
 
                 if (valTaxName.length < 3 || valTaxName.length > 150) {
                     $("#tax_name").focus().select();
@@ -165,14 +165,14 @@
                 }
 
                 $('#tblData').DataTable({
-                    "paging": true,
+                    "paging"    : true,
                     "pageLength": 10,
-                    "ajax": {
+                    "ajax"      : {
                         "url": "tax-master/list",
                         "dataSrc": "list"
                     },
-                    "columns": [{
-                            "data": null,
+                    "columns"   : [{
+                            "data"  : null,
                             "render": function(data, type, row) {
                                 taxId = row.id; // Store the Seller id in a variable
                                 return '<div class="d-flex">' +
@@ -186,16 +186,16 @@
                             }
                         },
                         {
-                            "data": "created_at",
+                            "data"  : "created_at",
                             "render": function(data) {
                                 return moment(data).format('Do-MMM-yyyy');
                             }
                         },
                         {
-                            "data": "tax_name"
+                            "data"  : "tax_name"
                         },
                         {
-                            "data": "tax_rate"
+                            "data"  : "tax_rate"
                         }
                         // Add more columns as needed
                     ],
@@ -225,15 +225,15 @@
                 if(!checkInputDataValidation()){
                     return true;
                 }else{
-                    var f_tax_name= $('#tax_name').val();
-                    var f_tax_rate= $('#tax_rate').val();
-                    var f_sl_no= $('#sl_no_tax').val();
+                    var f_tax_name      = $('#tax_name').val();
+                    var f_tax_rate      = $('#tax_rate').val();
+                    var f_sl_no         = $('#sl_no_tax').val();
 
                     var dt = {
-                            a_tax_name: f_tax_name,
-                            a_tax_rate: f_tax_rate,
-                            a_sl_no: f_sl_no,
-                            _token: "{{ csrf_token() }}"
+                            a_tax_name  : f_tax_name,
+                            a_tax_rate  : f_tax_rate,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
@@ -274,7 +274,7 @@
                         $('#tax_name').val(response.record.tax_name);
                         $('#tax_rate').val(response.record.tax_rate);
                         $('#sl_no_tax').val(response.record.id);
-                        console.log(response);
+                        // console.log(response);
                     }
                 });
             });
@@ -285,15 +285,15 @@
                 if(!checkInputDataValidation()) {
                     return true;
                 } else {
-                    var f_tax_name= $('#tax_name').val();
-                    var f_tax_rate= $('#tax_rate').val();
-                    var f_sl_no= $('#sl_no_tax').val();
+                    var f_tax_name      = $('#tax_name').val();
+                    var f_tax_rate      = $('#tax_rate').val();
+                    var f_sl_no         = $('#sl_no_tax').val();
 
                     var dt = {
-                            a_tax_name: f_tax_name,
-                            a_tax_rate: f_tax_rate,
-                            a_sl_no: f_sl_no,
-                            _token: "{{ csrf_token() }}"
+                            a_tax_name  : f_tax_name,
+                            a_tax_rate  : f_tax_rate,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
@@ -316,7 +316,7 @@
             // Delete part
             $('#tblData').on('click', '#btnDeleteData', function() {
                 var recordId = $(this).data('id');
-                console.log('Delete button clicked for record ID: ' + recordId);
+                // console.log('Delete button clicked for record ID: ' + recordId);
                 $('#deleteRecordModal').modal('show');
 
                 $.ajax({
@@ -331,13 +331,13 @@
 
             $("#btnDelete").click(function(event) {
                 event.preventDefault();
-                var f_tax_status = $('#tax_status').val();
-                var f_sl_no = $('#sl_no_tax').val();
+                var f_tax_status    = $('#tax_status').val();
+                var f_sl_no         = $('#sl_no_tax').val();
 
                 var dt = {
-                    a_tax_status: f_tax_status,
-                    a_sl_no: f_sl_no,
-                    _token: "{{ csrf_token() }}"
+                    a_tax_status    : f_tax_status,
+                    a_sl_no         : f_sl_no,
+                    _token          : "{{ csrf_token() }}"
                 }
                 // console.log(dt);
                 $.ajax({

@@ -41,13 +41,13 @@ class TaxMasterController extends Controller
     public function insert(Request $request){
         $nowTime    = Carbon::now();
         $insert     = [
-            'tax_name'=> $request->a_tax_name,
-            'tax_rate'=> $request->a_tax_rate,
+            'tax_name'          => $request->a_tax_name,
+            'tax_rate'          => $request->a_tax_rate,
 
-            'create_date_time'              => $nowTime,
-            'modify_date_time'              => $nowTime,    
-            'created_at'                    => $nowTime,    
-            'updated_at'                    => $nowTime 
+            'create_date_time'  => $nowTime,
+            'modify_date_time'  => $nowTime,    
+            'created_at'        => $nowTime,    
+            'updated_at'        => $nowTime 
         ];
 
         $add = TaxMaster::create($insert);
@@ -90,11 +90,11 @@ class TaxMasterController extends Controller
     public function update(Request $request){
         $nowTime    = Carbon::now();
         $update     = [
-            'tax_name'=> $request->a_tax_name,
-            'tax_rate'=> $request->a_tax_rate,
+            'tax_name'          => $request->a_tax_name,
+            'tax_rate'          => $request->a_tax_rate,
 
-            'modify_date_time'=> $nowTime,     
-            'updated_at'=> $nowTime 
+            'modify_date_time'  => $nowTime,     
+            'updated_at'        => $nowTime 
 
         ];
 
