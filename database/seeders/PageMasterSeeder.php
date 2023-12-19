@@ -85,6 +85,17 @@ class PageMasterSeeder extends Seeder
         ]);
 
         PageMaster::create([
+            'page_name'             => 'Tax Master',
+            'page_url'              => 'tax-master',
+            'page_icon'             => 'fa fa-money',
+            'page_status'           => 'Active',
+            'creator_id'            => 'Admin',
+            'create_date_time'      => $nowTime,
+            'modifier_id'           => 'Admin',
+            'modify_date_time'      => $nowTime,
+        ]);
+
+        PageMaster::create([
             'page_name'             => 'Distance Master',
             'page_url'              => 'distance-master',
             'page_icon'             => 'fa fa-map',

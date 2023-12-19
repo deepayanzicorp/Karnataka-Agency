@@ -6,6 +6,7 @@ use App\Http\Controllers\allUsers\AllUsersController;
 use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 use App\Http\Controllers\allUsers\SellerMasters\SellerMasterController;
+use App\Http\Controllers\allUsers\TaxMasters\TaxMasterController;
 
 
 // use App\Http\Controllers\allUsers\TestDemoController;
@@ -52,6 +53,7 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
     Route::get('buyer-master', [AllUsersController::class, 'buyerMaster'])->name('allUsers.buyerMaster');
     Route::get('grade-master', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
     Route::get('item-master', [AllUsersController::class, 'itemMaster'])->name('allUsers.itemMaster');
+    Route::get('tax-master', [AllUsersController::class, 'taxMaster'])->name('allUsers.taxMaster');
     Route::get('distance-master', [AllUsersController::class, 'distanceMaster'])->name('allUsers.distanceMaster');
     Route::get('item-price-list-master', [AllUsersController::class, 'itemPriceListMaster'])->name('allUsers.itemPriceListMaster');
     Route::get('freight-price-list-master', [AllUsersController::class, 'freightPriceListMaster'])->name('allUsers.freightPriceListMaster');
@@ -109,6 +111,17 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::put('updateShipping', [SellerMasterController::class, 'updateShipping'])->name('updateShipping');
         Route::get('deleteShipping/{id}', [SellerMasterController::class, 'editShipping']);
         Route::put('deleteShipping', [SellerMasterController::class, 'destroyShipping'])->name('deleteShipping');
+    });
+
+    // Tax Master
+    Route::group(['prefix' => 'tax-master', 'namespace' => 'TaxMasters', 'as' => 'taxMaster.'], function(){
+        Route::get('list', [TaxMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [TaxMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [TaxMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [TaxMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [TaxMasterController::class, 'edit']);
+        Route::put('delete', [TaxMasterController::class, 'destroy'])->name('delete');
+        Route::get('search', [TaxMasterController::class, 'search'])->name('search');
     });
 
 });

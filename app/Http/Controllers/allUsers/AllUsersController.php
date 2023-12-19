@@ -467,6 +467,57 @@ class AllUsersController extends Controller
 
      /*______________________________________________________________________
         
+        # TaxMaster
+        After successful login Admin will see TaxMaster                          
+    ______________________________________________________________________*/
+
+    public function taxMaster(Request $request){
+        try
+        {
+            if(!Auth::guard('allUsers')->check()) 
+            {
+                return Redirect::Route('allUsers.login');
+            }
+            else
+            {
+                $userId             = (Auth::guard('allUsers')->id()); 
+                $userEmail          = (Auth::guard('allUsers')->user()->email_id);
+                $data['entity']     = self::$entity;
+                $data['action']     = '';
+                $data['page_title'] = 'Tax Master';
+
+                $modelClass         = new User; 
+                $query              = $modelClass::where(array('user_status' => 'Active', 'email_id' => $userEmail));
+
+                if($query->count()  > 0){ 
+                    $userDetail     = $query->first()->toArray(); 
+                    $data['userDetail'] = $userDetail;
+
+                    // Using join method display sidebar data
+                    $roleId         = $userDetail['role_id']; 
+                    $arrPageMaster  = Role::select('roles.name', 'page_authorizations.role_id', 'page_authorizations.page_id', 'page_masters.page_name', 'page_masters.page_url', 'page_masters.page_icon')
+                                        ->leftJoin('page_authorizations', 'page_authorizations.role_id', '=', 'roles.id')
+                                        ->leftJoin('page_masters', 'page_authorizations.page_id', '=', 'page_masters.id')
+                                        ->where('roles.id', $roleId)
+                                        ->get();
+                    $data['arrPageMaster'] = $arrPageMaster;
+                }
+                return view($data['entity'] . '.tax-master', $data);
+            }
+        }
+        catch(\Exception $e)             // catch block of the try-catch exception
+        {
+            $error_message    = $e->getMessage();                       // get error message
+            $error_code       = $e->getCode();                          // get error code
+            $error_location   = 'Line No. ' . $e->getLine() . ' in file ' . $e->getFile();    // get error line number and file
+            $error            = 'Error Code:- ' . $error_code . '| Error Message:- '. $error_message . '| Error Location:- ' . $error_location; //die;
+            
+            echo $error;
+        }
+    }
+
+     /*______________________________________________________________________
+        
         # DistanceMaster
         After successful login Admin will see DistanceMaster                          
     ______________________________________________________________________*/

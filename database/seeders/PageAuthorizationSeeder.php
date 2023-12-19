@@ -53,5 +53,59 @@ class PageAuthorizationSeeder extends Seeder
             'modifier_id'       => 'Admin',
             'modify_date_time'  => $nowTime,
         ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 5,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 6,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 7,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 8,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 9,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
+
+        PageAuthorization::create([
+            'role_id'           => 2,
+            'page_id'           => 10,
+            'creator_id'        => 'Admin',
+            'create_date_time'  => $nowTime,
+            'modifier_id'       => 'Admin',
+            'modify_date_time'  => $nowTime,
+        ]);
     }
 }
