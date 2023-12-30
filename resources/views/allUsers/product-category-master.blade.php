@@ -22,16 +22,15 @@
                             </div>
                         </div>
 
-                        <!-- Display Tax list -->
+                        <!-- Display Product-Category list -->
                         <div class="card-body">
                             <div class="table-responsive table-responsive-sm">
                                 <table class="table table-bordered table-striped table-sm table-hover" id="tblData">
                                     <thead class="TableHeadTheme">
                                         <tr>
                                             <th style="width: 60px;">Actions</th>
-                                            <th>Created At</th>
-                                            <th>Tax Name</th>
-                                            <th>Tax Rate(%)</th>
+                                            <th>Category Name</th>
+                                            <th>Category Status</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -39,7 +38,7 @@
                             </div>
                         </div>
 
-                        <!-- Bootstrap Modal for Tax add or edit-->
+                        <!-- Bootstrap Modal for Product-Category add or edit-->
                         <div aria-hidden="true" aria-labelledby="addLabel" class="modal fade" id="addDetailsModal" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -57,23 +56,27 @@
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
                                                                     <label>SL No</label>
-                                                                    <input class="form-control form-control-sm" id="sl_no_tax" name="sl_no_tax" type="text" disabled>
+                                                                    <input class="form-control form-control-sm" id="sl_no_product_category" name="sl_no_product_category" type="text" disabled>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Tax Name</label>
-                                                                    <input class="form-control form-control-sm" id="tax_name" name="tax_name" type="text">
+                                                                    <label>Category Name</label>
+                                                                    <input class="form-control form-control-sm" id="product_category_name" name="product_category_name" type="text">
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class=col-md-6>
                                                                 <div class="form-group">
-                                                                    <label>Tax rate(%)</label>
-                                                                    <input class="form-control form-control-sm" id="tax_rate" name="tax_rate" runat="server"
-                                                                    maxlength="5" pattern="\d+(\.\d{1,2})?" title="Enter a valid number with up to two decimal places"
-                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+                                                                    <label>Category Status</label>
+                                                                    <div>
+                                                                        <select class="form-control-dropdown js-example-basic-single form-control-sm" id="product_category_status" name="product_category_status" style="width: 100%">
+                                                                            <option value="0">--Choose--</option>
+                                                                            <option value="Active">Active</option>
+                                                                            <option value="Inactive">Inactive</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -96,21 +99,21 @@
                             </div>
                         </div>
 
-                        <!-- Bootstrap Modal for Tax delete-->
+                        <!-- Bootstrap Modal for Product-Category delete-->
                         <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Delete Record</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">InActivate the Record</h5>
                                         <button data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
                                     </div>
 
-                                    <p style="margin-left: 15px; margin-top: 5px;">Confirm to Delete Record ?</p>
+                                    <p style="margin-left: 15px; margin-top: 5px;">Confirm to InActive Record ?</p>
                                     <input type="hidden" id="delete_record_id" name="delete_record_id">
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" id="btnDelete" class="btn btn-primary">Yes Delete</button>
+                                        <button type="submit" id="btnDelete" class="btn btn-primary">Yes InActive</button>
                                     </div>
                                 </div>
                             </div>
@@ -125,25 +128,25 @@
 
 @section('scripts')
     <script>
-        var taxId;
+        var categoryId;
         $(document).ready(function() {
             
             // Check validation
             function checkInputDataValidation(){
-                let valTaxName  = $("#tax_name").val();
-                let valTaxRate  = $("#tax_rate").val();
+                let valProductCategoryName      = $("#product_category_name").val();
+                let valProductCategoryStatus    = $("#product_category_status").val();
 
-                if (valTaxName.length < 3 || valTaxName.length > 150) {
-                    $("#tax_name").focus().select();
-                    showMessage('Tax Name should be between 3 and 150 characters');                    
+                if (valProductCategoryName.length < 3 || valProductCategoryName.length > 50) {
+                    $("#product_category_name").focus().select();
+                    showMessage('Product Category Name should be between 3 and 50 characters');                    
                     return false;
-                }             
+                } 
 
-                if (valTaxRate.length ==0 || valTaxRate.length > 6) {
-                    $("#tax_rate").focus().select();                    
-                    showMessage('Tax Rate maximum upto 5 digits')                    
+                if (valProductCategoryStatus == 0) {                   
+                    showMessage('Select Product category status')                    
                     return false;
-                }    
+                }
+                   
                 return true;          
             }
 
@@ -168,34 +171,28 @@
                     "paging"    : true,
                     "pageLength": 10,
                     "ajax"      : {
-                        "url": "tax/list",
+                        "url": "product-category/list",
                         "dataSrc": "list"
                     },
                     "columns"   : [{
                             "data"  : null,
                             "render": function(data, type, row) {
-                                taxId = row.id; // Store the Seller id in a variable
+                                categoryId = row.id; // Store the Seller id in a variable
                                 return '<div class="d-flex">' +
                                             '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
-                                            taxId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+                                            categoryId + '"><i class="fas fa-solid fa-pen"></i></button>' +
 
                                             '<button type="button" id="btnDeleteData" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
-                                            taxId +
+                                            categoryId +
                                             '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
                                         '</div>';
                             }
                         },
                         {
-                            "data"  : "created_at",
-                            "render": function(data) {
-                                return moment(data).format('Do-MMM-yyyy');
-                            }
+                            "data"  : "product_category_name"
                         },
                         {
-                            "data"  : "tax_name"
-                        },
-                        {
-                            "data"  : "tax_rate"
+                            "data"  : "product_category_status"
                         }
                         // Add more columns as needed
                     ],
@@ -225,21 +222,21 @@
                 if(!checkInputDataValidation()){
                     return true;
                 }else{
-                    var f_tax_name      = $('#tax_name').val();
-                    var f_tax_rate      = $('#tax_rate').val();
-                    var f_sl_no         = $('#sl_no_tax').val();
+                    var f_product_category_name         = $('#product_category_name').val(); 
+                    var f_product_category_status       = $('#product_category_status').val(); 
+                    var f_sl_no                         = $('#sl_no_product_category').val();
 
                     var dt = {
-                            a_tax_name  : f_tax_name,
-                            a_tax_rate  : f_tax_rate,
-                            a_sl_no     : f_sl_no,
-                            _token      : "{{ csrf_token() }}"
+                            a_product_category_name     : f_product_category_name,
+                            a_product_category_status   : f_product_category_status,    
+                            a_sl_no                     : f_sl_no,
+                            _token                      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
                         type: 'post',
                         data: dt,
-                        url: "{{ url('tax/insert') }}",
+                        url: "{{ url('product-category/insert') }}",
 
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
@@ -269,12 +266,12 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "tax/edit/" + recordId,
+                    url: "product-category/edit/" + recordId,
                     success: function(response) {
-                        $('#tax_name').val(response.record.tax_name);
-                        $('#tax_rate').val(response.record.tax_rate);
-                        $('#sl_no_tax').val(response.record.id);
-                        // console.log(response);
+                        $('#product_category_name').val(response.record.product_category_name);
+                        $('#product_category_status').val(response.record.product_category_status);
+                        $('#sl_no_product_category').val(response.record.id);
+                        console.log(response);
                     }
                 });
             });
@@ -285,21 +282,21 @@
                 if(!checkInputDataValidation()) {
                     return true;
                 } else {
-                    var f_tax_name      = $('#tax_name').val();
-                    var f_tax_rate      = $('#tax_rate').val();
-                    var f_sl_no         = $('#sl_no_tax').val();
+                    var f_product_category_name     = $('#product_category_name').val();
+                    var f_product_category_status   = $('#product_category_status').val();
+                    var f_sl_no                     = $('#sl_no_product_category').val(); 
 
                     var dt = {
-                            a_tax_name  : f_tax_name,
-                            a_tax_rate  : f_tax_rate,
-                            a_sl_no     : f_sl_no,
-                            _token      : "{{ csrf_token() }}"
+                            a_product_category_name     : f_product_category_name,
+                            a_product_category_status   : f_product_category_status,
+                            a_sl_no                     : f_sl_no,
+                            _token                      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
-                        type: 'put',
+                        type: 'PUT',
                         data: dt,
-                        url: "{{ url('tax/update') }}",
+                        url: "{{ url('product-category/update') }}",
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
                             loadDataTable();
@@ -321,33 +318,40 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "tax/delete/" + recordId,
+                    url: "product-category/delete/" + recordId,
                     success: function(response) {
                         // console.log(response);
-                        $('#sl_no_tax').val(response.record.id);
+                        $('#sl_no_product_category').val(response.record.id);
                     }
                 });
             });
 
             $("#btnDelete").click(function(event) {
                 event.preventDefault();
-                var f_tax_status    = $('#tax_status').val();
-                var f_sl_no         = $('#sl_no_tax').val();
+                var f_product_category_status   = $('#product_category_status').val();
+                var f_sl_no                     = $('#sl_no_product_category').val();
+
+                /*if (f_product_category_status == 0 || f_product_category_status === 'Inactive') {
+                    $('#deleteRecordModal').modal('hide');
+                    $('#btnDeleteData').hide();
+                    showSuccessMessage('Record is already inactive. Cannot inactivate again.')
+                    return;
+                }*/
 
                 var dt = {
-                    a_tax_status    : f_tax_status,
-                    a_sl_no         : f_sl_no,
-                    _token          : "{{ csrf_token() }}"
+                    a_product_category_status   : f_product_category_status,
+                    a_sl_no                     : f_sl_no,
+                    _token                      : "{{ csrf_token() }}"
                 }
                 // console.log(dt);
                 $.ajax({
                     type: 'put',
                     data: dt,
-                    url: "{{ url('tax/delete') }}",
+                    url: "{{ url('product-category/delete') }}",
                     success: function(response) {
                         $('#deleteRecordModal').modal('hide');
                         loadDataTable();
-                        showSuccessMessage('Record is Deleted.')
+                        showSuccessMessage('Record is InActivated.')
                     },
                     error: function(response) {
                         console.log('Error:', response);

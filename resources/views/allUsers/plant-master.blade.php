@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                        <!-- Display Tax list -->
+                        <!-- Display Plant list -->
                         <div class="card-body">
                             <div class="table-responsive table-responsive-sm">
                                 <table class="table table-bordered table-striped table-sm table-hover" id="tblData">
@@ -30,8 +30,9 @@
                                         <tr>
                                             <th style="width: 60px;">Actions</th>
                                             <th>Created At</th>
-                                            <th>Tax Name</th>
-                                            <th>Tax Rate(%)</th>
+                                            <th>Plant Name</th>
+                                            <th>Plant Code</th>
+                                            <th>State</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -39,7 +40,7 @@
                             </div>
                         </div>
 
-                        <!-- Bootstrap Modal for Tax add or edit-->
+                        <!-- Bootstrap Modal for Plant add or edit-->
                         <div aria-hidden="true" aria-labelledby="addLabel" class="modal fade" id="addDetailsModal" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -57,23 +58,67 @@
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
                                                                     <label>SL No</label>
-                                                                    <input class="form-control form-control-sm" id="sl_no_tax" name="sl_no_tax" type="text" disabled>
+                                                                    <input class="form-control form-control-sm" id="sl_no_plant" name="sl_no_plant" type="text" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label>Plant Name</label>
+                                                                    <input class="form-control form-control-sm" id="plant_name" name="plant_name" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Tax Name</label>
-                                                                    <input class="form-control form-control-sm" id="tax_name" name="tax_name" type="text">
+                                                                    <label>Plant Code</label>
+                                                                    <input class="form-control form-control-sm" id="plant_code" name="plant_code" type="text">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Tax rate(%)</label>
-                                                                    <input class="form-control form-control-sm" id="tax_rate" name="tax_rate" runat="server"
-                                                                    maxlength="5" pattern="\d+(\.\d{1,2})?" title="Enter a valid number with up to two decimal places"
-                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+                                                                    <label>State</label>
+                                                                    <select class="form-control-dropdown js-example-basic-single form-control-sm" id="state" name="state" style="width: 100%; font-size: 14px;">
+                                                                        <option value="0">Select State</option>
+                                                                        <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
+                                                                        <option value="Arunachal Pradesh (AR)">Arunachal Pradesh (AR)</option>
+                                                                        <option value="Assam (AS)">Assam (AS)</option>
+                                                                        <option value="Bihar (BR)">Bihar (BR)</option>
+                                                                        <option value="Chhattisgarh (CG)">Chhattisgarh (CG)</option>
+                                                                        <option value="Goa (GA)">Goa (GA)</option>
+                                                                        <option value="Gujarat (GJ)">Gujarat (GJ)</option>
+                                                                        <option value="Haryana (HR)">Haryana (HR)</option>
+                                                                        <option value="Himachal Pradesh (HP)">Himachal Pradesh (HP)</option>
+                                                                        <option value="Jammu and Kashmir (JK)">Jammu and Kashmir (JK)</option>
+                                                                        <option value="Jharkhand (JH)">Jharkhand (JH)</option>
+                                                                        <option value="Karnataka (KA)">Karnataka (KA)</option>
+                                                                        <option value="Kerala (KL)">Kerala (KL)</option>
+                                                                        <option value="Madhya Pradesh (MP)">Madhya Pradesh (MP)</option>
+                                                                        <option value="Maharashtra (MH)">Maharashtra (MH)</option>
+                                                                        <option value="Manipur (MN)">Manipur (MN)</option>
+                                                                        <option value="Meghalaya (ML)">Meghalaya (ML)</option>
+                                                                        <option value="Mizoram (MZ)">Mizoram (MZ)</option>
+                                                                        <option value="Nagaland (NL)">Nagaland (NL)</option>
+                                                                        <option value="Orissa (OR)">Orissa (OR)</option>
+                                                                        <option value="Punjab (PB)">Punjab (PB)</option>
+                                                                        <option value="Rajasthan (RJ)">Rajasthan (RJ)</option>
+                                                                        <option value="Sikkim (SK)">Sikkim (SK)</option>
+                                                                        <option value="Tamil Nadu (TN)">Tamil Nadu (TN)</option>
+                                                                        <option value="Tripura (TR)">Tripura (TR)</option>
+                                                                        <option value="Uttarakhand (UK)">Uttarakhand (UK)</option>
+                                                                        <option value="Uttar Pradesh (UP)">Uttar Pradesh (UP)</option>
+                                                                        <option value="West Bengal (WB)">West Bengal (WB)</option>
+                                                                        <option value="Tamil Nadu (TN)">Tamil Nadu (TN)</option>
+                                                                        <option value="Tripura (TR)">Tripura (TR)</option>
+                                                                        <option value="Andaman and Nicobar Islands (AN)">Andaman and Nicobar Islands (AN)</option>
+                                                                        <option value="Chandigarh (CH)">Chandigarh (CH)</option>
+                                                                        <option value="Dadra and Nagar Haveli (DH)">Dadra and Nagar Haveli (DH)</option>
+                                                                        <option value="Daman and Diu (DD)">Daman and Diu (DD)</option>
+                                                                        <option value="Delhi (DL)">Delhi (DL)</option>
+                                                                        <option value="Lakshadweep (LD)">Lakshadweep (LD)</option>
+                                                                        <option value="Pondicherry (PY)">Pondicherry (PY)</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -96,7 +141,7 @@
                             </div>
                         </div>
 
-                        <!-- Bootstrap Modal for Tax delete-->
+                        <!-- Bootstrap Modal for Plant delete-->
                         <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -125,25 +170,32 @@
 
 @section('scripts')
     <script>
-        var taxId;
+        var plantId;
         $(document).ready(function() {
             
             // Check validation
             function checkInputDataValidation(){
-                let valTaxName  = $("#tax_name").val();
-                let valTaxRate  = $("#tax_rate").val();
+                let valPlantName  = $("#plant_name").val();
+                let valPlantCode  = $("#plant_code").val();
+                let valState      = $("#state").val();
 
-                if (valTaxName.length < 3 || valTaxName.length > 150) {
-                    $("#tax_name").focus().select();
-                    showMessage('Tax Name should be between 3 and 150 characters');                    
+                if (valPlantName.length < 3 || valPlantName.length > 150) {
+                    $("#plant_name").focus().select();
+                    showMessage('Plant Name should be between 3 and 150 characters');                    
                     return false;
-                }             
+                } 
+                
+                if (valPlantCode.length < 3 || valPlantCode.length > 50) {
+                    $("#plant_code").focus().select();
+                    showMessage('Plant Code should be between 3 and 50 characters');                    
+                    return false;
+                } 
 
-                if (valTaxRate.length ==0 || valTaxRate.length > 6) {
-                    $("#tax_rate").focus().select();                    
-                    showMessage('Tax Rate maximum upto 5 digits')                    
+                if (valState == 0 || valState == null) {                   
+                    showMessage('Select state')                    
                     return false;
-                }    
+                }
+                   
                 return true;          
             }
 
@@ -168,19 +220,19 @@
                     "paging"    : true,
                     "pageLength": 10,
                     "ajax"      : {
-                        "url": "tax/list",
+                        "url": "plant/list",
                         "dataSrc": "list"
                     },
                     "columns"   : [{
                             "data"  : null,
                             "render": function(data, type, row) {
-                                taxId = row.id; // Store the Seller id in a variable
+                                plantId = row.id; // Store the Seller id in a variable
                                 return '<div class="d-flex">' +
                                             '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
-                                            taxId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+                                            plantId + '"><i class="fas fa-solid fa-pen"></i></button>' +
 
                                             '<button type="button" id="btnDeleteData" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
-                                            taxId +
+                                            plantId +
                                             '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
                                         '</div>';
                             }
@@ -192,10 +244,13 @@
                             }
                         },
                         {
-                            "data"  : "tax_name"
+                            "data"  : "plant_name"
                         },
                         {
-                            "data"  : "tax_rate"
+                            "data"  : "plant_code"
+                        },
+                        {
+                            "data"  : "plant_state"
                         }
                         // Add more columns as needed
                     ],
@@ -225,21 +280,23 @@
                 if(!checkInputDataValidation()){
                     return true;
                 }else{
-                    var f_tax_name      = $('#tax_name').val();
-                    var f_tax_rate      = $('#tax_rate').val();
-                    var f_sl_no         = $('#sl_no_tax').val();
+                    var f_plant_name    = $('#plant_name').val();
+                    var f_plant_code    = $('#plant_code').val();
+                    var f_plant_state   = $('#state').val();
+                    var f_sl_no         = $('#sl_no_plant').val();
 
                     var dt = {
-                            a_tax_name  : f_tax_name,
-                            a_tax_rate  : f_tax_rate,
-                            a_sl_no     : f_sl_no,
-                            _token      : "{{ csrf_token() }}"
+                            a_plant_name    : f_plant_name,
+                            a_plant_code    : f_plant_code,
+                            a_plant_state   : f_plant_state,
+                            a_sl_no         : f_sl_no,
+                            _token          : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
                         type: 'post',
                         data: dt,
-                        url: "{{ url('tax/insert') }}",
+                        url: "{{ url('plant/insert') }}",
 
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
@@ -269,11 +326,12 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "tax/edit/" + recordId,
+                    url: "plant/edit/" + recordId,
                     success: function(response) {
-                        $('#tax_name').val(response.record.tax_name);
-                        $('#tax_rate').val(response.record.tax_rate);
-                        $('#sl_no_tax').val(response.record.id);
+                        $('#plant_name').val(response.record.plant_name);
+                        $('#plant_code').val(response.record.plant_code);
+                        $('#state').val(response.record.plant_state);
+                        $('#sl_no_plant').val(response.record.id);
                         // console.log(response);
                     }
                 });
@@ -285,21 +343,23 @@
                 if(!checkInputDataValidation()) {
                     return true;
                 } else {
-                    var f_tax_name      = $('#tax_name').val();
-                    var f_tax_rate      = $('#tax_rate').val();
-                    var f_sl_no         = $('#sl_no_tax').val();
+                    var f_plant_name        = $('#plant_name').val();
+                    var f_plant_code        = $('#plant_code').val();
+                    var f_plant_state       = $('#state').val();
+                    var f_sl_no             = $('#sl_no_plant').val();
 
                     var dt = {
-                            a_tax_name  : f_tax_name,
-                            a_tax_rate  : f_tax_rate,
-                            a_sl_no     : f_sl_no,
-                            _token      : "{{ csrf_token() }}"
+                            a_plant_name    : f_plant_name,
+                            a_plant_code    : f_plant_code,
+                            a_plant_state   : f_plant_state,
+                            a_sl_no         : f_sl_no,
+                            _token          : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
                         type: 'put',
                         data: dt,
-                        url: "{{ url('tax/update') }}",
+                        url: "{{ url('plant/update') }}",
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
                             loadDataTable();
@@ -321,21 +381,21 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "tax/delete/" + recordId,
+                    url: "plant/delete/" + recordId,
                     success: function(response) {
                         // console.log(response);
-                        $('#sl_no_tax').val(response.record.id);
+                        $('#sl_no_plant').val(response.record.id);
                     }
                 });
             });
 
             $("#btnDelete").click(function(event) {
                 event.preventDefault();
-                var f_tax_status    = $('#tax_status').val();
-                var f_sl_no         = $('#sl_no_tax').val();
+                var f_plant_status  = $('#plant_status').val();
+                var f_sl_no         = $('#sl_no_plant').val();
 
                 var dt = {
-                    a_tax_status    : f_tax_status,
+                    a_plant_status  : f_plant_status,
                     a_sl_no         : f_sl_no,
                     _token          : "{{ csrf_token() }}"
                 }
@@ -343,7 +403,7 @@
                 $.ajax({
                     type: 'put',
                     data: dt,
-                    url: "{{ url('tax/delete') }}",
+                    url: "{{ url('plant/delete') }}",
                     success: function(response) {
                         $('#deleteRecordModal').modal('hide');
                         loadDataTable();

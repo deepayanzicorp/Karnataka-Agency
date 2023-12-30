@@ -604,7 +604,7 @@
                     "paging": true,
                     "pageLength": 10,
                     "ajax": {
-                        "url": "seller-master/list",
+                        "url": "seller/list",
                         "dataSrc": "list"
                     },
                     "columns": [{
@@ -704,7 +704,7 @@
                     $.ajax({
                         type: 'post',
                         data: dt,
-                        url: "{{ url('seller-master/insert') }}",
+                        url: "{{ url('seller/insert') }}",
 
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
@@ -734,7 +734,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "seller-master/edit/" + recordId,
+                    url: "seller/edit/" + recordId,
                     success: function(response) {
                         $('#seller_name').val(response.record.seller_name);
                         $('#short_name').val(response.record.seller_short_name);
@@ -794,7 +794,7 @@
                     $.ajax({
                         type: 'put',
                         data: dt,
-                        url: "{{ url('seller-master/update') }}",
+                        url: "{{ url('seller/update') }}",
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
                             loadDataTable();
@@ -816,7 +816,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "seller-master/delete/" + recordId,
+                    url: "seller/delete/" + recordId,
                     success: function(response) {
                         // console.log(response);
                         $('#sl_no_seller').val(response.record.id);
@@ -838,7 +838,7 @@
                 $.ajax({
                     type: 'put',
                     data: dt,
-                    url: "{{ url('seller-master/delete') }}",
+                    url: "{{ url('seller/delete') }}",
                     success: function(response) {
                         $('#deleteRecordModal').modal('hide');
                         loadDataTable();
@@ -980,7 +980,7 @@
                     "pageLength": 10,
                     "ajax": {
                         "data":{seller_id_shipp: $('#seller_id').val()},
-                        "url": "seller-master/listShipping",
+                        "url": "seller/listShipping",
                         "dataSrc": "shippinglist"
                     },
                     "columns": [{
@@ -1086,7 +1086,7 @@
                     $.ajax({
                         type: 'post',
                         data: dt,
-                        url: "{{ url('seller-master/insertShipping') }}",
+                        url: "{{ url('seller/insertShipping') }}",
 
                         success: function(response) {
                             $('#addShippingModal').modal('hide');
@@ -1116,7 +1116,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "seller-master/editShipping/" + recordId,
+                    url: "seller/editShipping/" + recordId,
                     success: function(response) {
                         $('#shipping_short_name').val(response.record.shipping_short_name);
                         $('#shipping_zone').val(response.record.shipping_zone);
@@ -1179,7 +1179,7 @@
                     $.ajax({
                         type: 'put',
                         data: dt,
-                        url: "{{ url('seller-master/updateShipping') }}",
+                        url: "{{ url('seller/updateShipping') }}",
                         success: function(response) {
                             $('#addShippingModal').modal('hide');
                             $("#listShippingModal").modal('show');
@@ -1202,7 +1202,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "seller-master/deleteShipping/" + recordId,
+                    url: "seller/deleteShipping/" + recordId,
                     success: function(response) {
                         // console.log(response);
                         $('#sl_no_seller_ship').val(response.record.id);
@@ -1224,7 +1224,7 @@
                 $.ajax({
                     type: 'put',
                     data: dt,
-                    url: "{{ url('seller-master/deleteShipping') }}",
+                    url: "{{ url('seller/deleteShipping') }}",
                     success: function(response) {
                         $('#deleteRecordShippingModal').modal('hide');
                         loadDataTableShipping();

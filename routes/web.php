@@ -6,7 +6,9 @@ use App\Http\Controllers\allUsers\AllUsersController;
 use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 use App\Http\Controllers\allUsers\SellerMasters\SellerMasterController;
+use App\Http\Controllers\allUsers\ProductCategoryMasters\ProductCategoryMasterController;
 use App\Http\Controllers\allUsers\TaxMasters\TaxMasterController;
+use App\Http\Controllers\allUsers\PlantMasters\PlantMasterController;
 
 
 // use App\Http\Controllers\allUsers\TestDemoController;
@@ -49,14 +51,16 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
 
     Route::get('company-details', [AllUsersController::class, 'companyDetails'])->name('allUsers.companyDetails');
     Route::get('channel-partner', [AllUsersController::class, 'channelPartner'])->name('allUsers.channelPartner');
-    Route::get('seller-master', [AllUsersController::class, 'sellerMaster'])->name('allUsers.sellerMaster');
-    Route::get('buyer-master', [AllUsersController::class, 'buyerMaster'])->name('allUsers.buyerMaster');
-    Route::get('grade-master', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
-    Route::get('item-master', [AllUsersController::class, 'itemMaster'])->name('allUsers.itemMaster');
-    Route::get('tax-master', [AllUsersController::class, 'taxMaster'])->name('allUsers.taxMaster');
-    Route::get('distance-master', [AllUsersController::class, 'distanceMaster'])->name('allUsers.distanceMaster');
-    Route::get('item-price-list-master', [AllUsersController::class, 'itemPriceListMaster'])->name('allUsers.itemPriceListMaster');
-    Route::get('freight-price-list-master', [AllUsersController::class, 'freightPriceListMaster'])->name('allUsers.freightPriceListMaster');
+    Route::get('seller', [AllUsersController::class, 'sellerMaster'])->name('allUsers.sellerMaster');
+    Route::get('buyer', [AllUsersController::class, 'buyerMaster'])->name('allUsers.buyerMaster');
+    Route::get('grade', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
+    Route::get('product-category', [AllUsersController::class, 'productCategoryMaster'])->name('allUsers.productCategoryMaster');
+    Route::get('item', [AllUsersController::class, 'itemMaster'])->name('allUsers.itemMaster');
+    Route::get('tax', [AllUsersController::class, 'taxMaster'])->name('allUsers.taxMaster');
+    Route::get('plant', [AllUsersController::class, 'plantMaster'])->name('allUsers.plantMaster');
+    Route::get('distance', [AllUsersController::class, 'distanceMaster'])->name('allUsers.distanceMaster');
+    Route::get('item-price-list', [AllUsersController::class, 'itemPriceListMaster'])->name('allUsers.itemPriceListMaster');
+    Route::get('freight-price-list', [AllUsersController::class, 'freightPriceListMaster'])->name('allUsers.freightPriceListMaster');
 
     // Company Details
     Route::group(['prefix' => 'company-details', 'namespace' => 'companyDetails', 'as' => 'companyDetails.'], function(){
@@ -72,7 +76,7 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
     });
 
     // Buyer Master
-    Route::group(['prefix' => 'buyer-master', 'namespace' => 'BuyerMasters', 'as' => 'buyerMaster.'], function(){
+    Route::group(['prefix' => 'buyer', 'namespace' => 'BuyerMasters', 'as' => 'buyerMaster.'], function(){
         // Route::get('/', [BuyerMasterController::class, 'list'])->name('list');        
         Route::get('list', [BuyerMasterController::class, 'list'])->name('list');        
         Route::post('insert', [BuyerMasterController::class, 'insert'])->name('insert');
@@ -95,7 +99,7 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
     });
 
     // Seller Master
-    Route::group(['prefix' => 'seller-master', 'namespace' => 'SellerMasters', 'as' => 'sellerMaster.'], function(){
+    Route::group(['prefix' => 'seller', 'namespace' => 'SellerMasters', 'as' => 'sellerMaster.'], function(){
         Route::get('list', [SellerMasterController::class, 'list'])->name('list');        
         Route::post('insert', [SellerMasterController::class, 'insert'])->name('insert');
         Route::get('edit/{id}', [SellerMasterController::class, 'edit'])->name('edit');
@@ -113,8 +117,28 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::put('deleteShipping', [SellerMasterController::class, 'destroyShipping'])->name('deleteShipping');
     });
 
+    // Grade Master
+    Route::group(['prefix' => 'grade', 'namespace' => 'GradeMasters', 'as' => 'gradeMaster.'], function(){
+        Route::get('list', [GradeMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [GradeMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [GradeMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [GradeMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [GradeMasterController::class, 'edit']);
+        Route::put('delete', [GradeMasterController::class, 'destroy'])->name('delete');
+    });
+
+    // Product-Category Master
+    Route::group(['prefix' => 'product-category', 'namespace' => 'ProductCategoryMasters', 'as' => 'productcategoryMaster.'], function(){
+        Route::get('list', [ProductCategoryMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [ProductCategoryMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [ProductCategoryMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [ProductCategoryMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ProductCategoryMasterController::class, 'edit']);
+        Route::put('delete', [ProductCategoryMasterController::class, 'destroy'])->name('delete');
+    });
+
     // Tax Master
-    Route::group(['prefix' => 'tax-master', 'namespace' => 'TaxMasters', 'as' => 'taxMaster.'], function(){
+    Route::group(['prefix' => 'tax', 'namespace' => 'TaxMasters', 'as' => 'taxMaster.'], function(){
         Route::get('list', [TaxMasterController::class, 'list'])->name('list');        
         Route::post('insert', [TaxMasterController::class, 'insert'])->name('insert');
         Route::get('edit/{id}', [TaxMasterController::class, 'edit'])->name('edit');
@@ -124,7 +148,20 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::get('search', [TaxMasterController::class, 'search'])->name('search');
     });
 
+    // Plant Master
+    Route::group(['prefix' => 'plant', 'namespace' => 'PlantMasters', 'as' => 'plantMaster.'], function(){
+        Route::get('list', [PlantMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [PlantMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [PlantMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [PlantMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [PlantMasterController::class, 'edit']);
+        Route::put('delete', [PlantMasterController::class, 'destroy'])->name('delete');
+    });
+
 });
+
+
+
 
 
 /*______________________________________________________________________

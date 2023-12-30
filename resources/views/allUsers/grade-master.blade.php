@@ -1,396 +1,361 @@
 @extends('allUsers.layout.default')
 
 @section('content')
-<div class=content>
-    <div class=container-fluid>
-        <div class=row>
-            <div class="col-lg-12">
-                <div class="card card-outline mt-2">
-                    <div class="content-header">
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <div class="col-md-8">
-                                    <h1 class="m-0">{{$page_title}}</h1>
+<!-- Body Start -->
+    <div class=content>
+        <div class=container-fluid>
+            <div class=row>
+                <div class="col-lg-12">
+                    <div class="card card-outline mt-2">
+                        <div class="content-header">
+                            <div class="container-fluid">
+                                <div class="row align-items-center">
+                                    <div class="col-md-9">
+                                        <h1 class="m-0">{{ $page_title }}</h1>
+                                    </div>
+                                    <div class="col-md-3 align-self-center">
+                                        <button class="btn modalBtn float-right" id="addDetailsBtn" data-bs-target=#addDetailsModal data-bs-toggle=modal>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
+                                        </button>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="col-md-4 align-self-center">
-                                    <div class="input-group">
-                                        <input class="form-control form-control-sm" id="searchInput" placeholder="Search..." type="text">
-                                        <div class=input-group-append>
-                                            <button class="btn btn-sm SearchButton" id="searchButton" type="button" style="color: black;"><i class="fas fa-search"></i>&nbsp;Search</button>
+                        <!-- Display Tax list -->
+                        <div class="card-body">
+                            <div class="table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped table-sm table-hover" id="tblData">
+                                    <thead class="TableHeadTheme">
+                                        <tr>
+                                            <th style="width: 60px;">Actions</th>
+                                            <th>Created At</th>
+                                            <th>Grade</th>
+                                            <th>Material Type</th>
+                                            <th>Quality Code</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Bootstrap Modal for Tax add or edit-->
+                        <div aria-hidden="true" aria-labelledby="addLabel" class="modal fade" id="addDetailsModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addLabel">Manage Details</h5>
+                                        <button data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
+                                    </div>
+
+                                    <div class="modal-body p-0 modal-contentBG" id="addDetailsForm">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body modal-contentBG">
+                                                        <div class="row">
+                                                            <div class="col-md-12" hidden>
+                                                                <div class="form-group">
+                                                                    <label>SL No</label>
+                                                                    <input class="form-control form-control-sm" id="sl_no_tax" name="sl_no_tax" type="text" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Tax Name</label>
+                                                                    <input class="form-control form-control-sm" id="tax_name" name="tax_name" type="text">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Tax rate(%)</label>
+                                                                    <input class="form-control form-control-sm" id="tax_rate" name="tax_rate" runat="server"
+                                                                    maxlength="5" pattern="\d+(\.\d{1,2})?" title="Enter a valid number with up to two decimal places"
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                
-                                        <div class="float-right" data-bs-target=#addSellerModal data-bs-toggle=modal style="cursor: pointer;">
-                                            <i class="fa fa-plus-square" aria-hidden="true" style="color: #FFD580; font-size: 27px;"></i>
+
+                                        <div class="modal-footer justify-content-between ModalFooterBorder">
+                                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button" id="addDetailsCancelBtn">Cancel</button>
+                                            <button class="btn modalBtn" id="btnUpdate" type="submit">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Update
+                                            </button>
+                                            <button class="btn modalBtn" id="btnAdd" type="submit">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Display added Agency entries in a table -->
-                    <div class="card-body">
-                        <div class="table-responsive table-responsive-sm">
-                            <table class="table table-bordered table-striped table-sm table-hover" id="example1">
-                                <thead class="TableHeadTheme">
-                                    <tr>
-                                        <th style="width: 100px;">Actions</th>
-                                        <th>Grade Name</th>
-                                        <th>Material Type</th>
-                                        <th>Quality Code</th>                                             
-                                    </tr>
-                                </thead>
-                                <tbody id="agentTableBody">
-                                    <tr>
-                                        <td style="text-align: center; width: 100px;">
-                                            <a href=""><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: black"></i></a>                                            
-                                            <span>|</span>
-                                            <a href=""><img src="{{asset('assets/img/Delete.png')}}" style="height: 1.25em; width:auto; " alt="Delete"></a>                                                                                             
-                                        </td>
-                                        <td>Gecko</td>
-                                        <td>Firefox 2.0</td>
-                                        <td>ABCDE1234I6UU</td>   
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center; width: 100px;">
-                                            <a href=""><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: black"></i></a>                                            
-                                            <span>|</span>
-                                            <a href=""><img src="{{asset('assets/img/Delete.png')}}" style="height: 1.25em; width:auto; " alt="Delete"></a>                                                 
-                                        </td>
-                                        <td>Test Brad</td>
-                                        <td>Firefox 3.0</td>
-                                        <td>ABCDJ0234I6UU</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Bootstrap Modal for adding Grade entries -->
-                    <div aria-hidden="true" aria-labelledby="addGradeModalLabel" class="modal fade" id="addGradeModal" tabindex="-1">
-                        <div class="modal-dialog modal-lg">
-                            <form id="GradeForm">
-                                <div class="modal-content" style="background-color: rgb(233, 232, 230);">
-                                    <div class="modal-header" style="background-color: #17a2b8;color: #fff;">
-                                        <h5 class="modal-title" id="addGradeModalLabel">Add Grade</h5>
+                        <!-- Bootstrap Modal for Tax delete-->
+                        <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Record</h5>
                                         <button data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
                                     </div>
 
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="GradeName">Grade Name</label>
-                                                    <input class="form-control form-control-sm" id="GradeName" name="GradeName" type="text" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="MaterialType">Material Type</label>
-                                                    <input class="form-control form-control-sm" id="MaterialType" name="MaterialType" type="number" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="QualityCode">Quality Code</label>
-                                                    <input class="form-control form-control-sm" id="QualityCode" name="QualityCode" type="number" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-footer justify-content-between ModalFooterBorder">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
-                                        <button class="btn btn-primary" onclick="addGradeEntry()" type="button">Add Grade</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Bootstrap Modal for editing Grade entries -->
-                    <div aria-hidden="true" aria-labelledby="editGradeModalLabel" class="fade modal" id="editGradeModal" tabindex="-1">
-                        <div class="modal-dialog modal-lg">
-                            <form>
-                                <div class="modal-content" style="background-color: rgb(233, 232, 230);">
-                                    <div class="modal-header" style="background-color: #17a2b8;color: #fff;">
-                                        <h5 class="modal-title" id="editGradeModalLabel">Edit Grade</h5>
-                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="editGradeName">Grade Name</label>
-                                                    <input class="form-control form-control-sm" id="editGradeName" name="editGradeName" type="text">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="editMaterialType">Material Type</label>
-                                                    <input class="form-control form-control-sm" id="editMaterialType" name="editMaterialType" type="text">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="editQualityCode">Quality Code</label>
-                                                    <input class="form-control form-control-sm" id="editQualityCode" name="editQualityCode" type="number">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p style="margin-left: 15px; margin-top: 5px;">Confirm to Delete Record ?</p>
+                                    <input type="hidden" id="delete_record_id" name="delete_record_id">
 
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
-                                        <button class="btn btn-primary" onclick="updateGradeEntry()" type="button">Save Changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" id="btnDelete" class="btn btn-primary">Yes Delete</button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
-<script>
-    $(document).ready(function(){});
-</script>
+    <script>
+        var taxId;
+        $(document).ready(function() {
+            
+            // Check validation
+            function checkInputDataValidation(){
+                let valTaxName  = $("#tax_name").val();
+                let valTaxRate  = $("#tax_rate").val();
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const GradeTableBody = document.getElementById("GradeTableBody");
-        const noEntryFound = document.getElementById("noEntryFound");
+                if (valTaxName.length < 3 || valTaxName.length > 150) {
+                    $("#tax_name").focus().select();
+                    showMessage('Tax Name should be between 3 and 150 characters');                    
+                    return false;
+                }             
 
-        searchInput.addEventListener("input", function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
+                if (valTaxRate.length ==0 || valTaxRate.length > 6) {
+                    $("#tax_rate").focus().select();                    
+                    showMessage('Tax Rate maximum upto 5 digits')                    
+                    return false;
+                }    
+                return true;          
+            }
 
-            // Loop through the rows in the Grade table
-            let entryFound = false; // Flag to track if a matching entry is found
+            // To load add & edit forms
+            $('#addDetailsBtn').on('click', function() {
+                $("#addDetailsModal").modal('show');
+                $('#btnAdd').show();
+                $('#btnUpdate').hide();
+            });
 
-            for (let i = 0; i < GradeTableBody.rows.length; i++) {
-                const row = GradeTableBody.rows[i];
-                let rowMatch = false;
+            // To load DataTable
+            loadDataTable();
 
-                // Loop through all cells in the row
-                for (let j = 0; j < row.cells.length; j++) {
-                    const cell = row.cells[j];
-                    const cellText = cell.textContent.toLowerCase();
-
-                    // Check if the cell contains the search term
-                    if (cellText.includes(searchTerm)) {
-                        rowMatch = true;
-                        entryFound = true; // Set the flag to true if a match is found
-                        break; // Break the inner loop if a match is found in this row
-                    }
+            // Initialize DataTable with pagination and AJAX
+            function loadDataTable() {
+                // Destroy existing DataTable instance, if any
+                if ($.fn.DataTable.isDataTable('#tblData')) {
+                    $('#tblData').DataTable().destroy();
                 }
 
-                // Show or hide the row based on the match
-                if (rowMatch) {
-                    row.style.display = ""; // Show the row
+                $('#tblData').DataTable({
+                    "paging"    : true,
+                    "pageLength": 10,
+                    "ajax"      : {
+                        "url": "tax/list",
+                        "dataSrc": "list"
+                    },
+                    "columns"   : [{
+                            "data"  : null,
+                            "render": function(data, type, row) {
+                                taxId = row.id; // Store the Seller id in a variable
+                                return '<div class="d-flex">' +
+                                            '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
+                                            taxId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+
+                                            '<button type="button" id="btnDeleteData" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
+                                            taxId +
+                                            '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
+                                        '</div>';
+                            }
+                        },
+                        {
+                            "data"  : "created_at",
+                            "render": function(data) {
+                                return moment(data).format('Do-MMM-yyyy');
+                            }
+                        },
+                        {
+                            "data"  : "tax_name"
+                        },
+                        {
+                            "data"  : "tax_rate"
+                        }
+                        // Add more columns as needed
+                    ],
+
+                    // Language option for customizing text
+                    "language": {
+                        "zeroRecords": "No data available in table"
+                    }
+                });
+            }            
+
+            //Message function
+            function showMessage(message) {
+                toastr.options = { "closeButton": true, "progressBar": true }
+                toastr.error(message);
+            }
+
+            function showSuccessMessage(message) {
+                toastr.options = { "closeButton": true, "progressBar": true }
+                toastr.success(message);
+            }
+
+            // Insert part
+            $("#btnAdd").click(function(event) {
+                event.preventDefault();
+
+                if(!checkInputDataValidation()){
+                    return true;
+                }else{
+                    var f_tax_name      = $('#tax_name').val();
+                    var f_tax_rate      = $('#tax_rate').val();
+                    var f_sl_no         = $('#sl_no_tax').val();
+
+                    var dt = {
+                            a_tax_name  : f_tax_name,
+                            a_tax_rate  : f_tax_rate,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
+                    }
+                    // console.log(dt);
+                    $.ajax({
+                        type: 'post',
+                        data: dt,
+                        url: "{{ url('tax/insert') }}",
+
+                        success: function(response) {
+                            $('#addDetailsModal').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                            loadDataTable();
+                            showSuccessMessage('Record is Inserted.')
+                        },
+                        error: function(response) {
+                            console.log('Error:', response);
+                        }
+                    })
+                    return false;                    
+                }
+            });
+
+            // Edit part
+            $('#tblData').on('click', '#btnEdit', function() {
+                // Retrieve the data-id attribute from the clicked button
+                var recordId = $(this).data('id');
+                // console.log('Edit button clicked for record ID: ' + recordId);
+
+                // Add your logic here to handle the edit event.For example, you can open a modal with the details of the selected record for editing
+                $('#addDetailsModal').modal('show');
+                $('#btnAdd').hide();
+                $('#btnUpdate').show();
+
+                $.ajax({
+                    type: "GET",
+                    url: "tax/edit/" + recordId,
+                    success: function(response) {
+                        $('#tax_name').val(response.record.tax_name);
+                        $('#tax_rate').val(response.record.tax_rate);
+                        $('#sl_no_tax').val(response.record.id);
+                        // console.log(response);
+                    }
+                });
+            });
+
+            $("#btnUpdate").click(function(event) {
+                event.preventDefault();
+
+                if(!checkInputDataValidation()) {
+                    return true;
                 } else {
-                    row.style.display = "none"; // Hide the row
-                }
-            }
+                    var f_tax_name      = $('#tax_name').val();
+                    var f_tax_rate      = $('#tax_rate').val();
+                    var f_sl_no         = $('#sl_no_tax').val();
 
-            // Show or hide the "No such entry found" message
-            if (entryFound) {
-                noEntryFound.style.display = "none"; // Hide the message
-            } else {
-                noEntryFound.style.display = "block"; // Show the message
-            }
-        });
-    });
-
-    // Function to add a new Grade entry
-    function addGradeEntry() {
-        console.log("addGradeEntry called");
-        // Get form values
-        const GradeName = document.getElementById("GradeName").value.trim();
-        console.log("GradeName:", GradeName);
-        const MaterialType = document.getElementById("MaterialType").value.trim();
-        console.log("MaterialType:", MaterialType);
-        const QualityCode = document.getElementById("QualityCode").value.trim();
-        console.log("QualityCode:", QualityCode);
-        // Check if any of the required fields are empty
-        if (!GradeName || !MaterialType || !QualityCode) {
-            alert("Please fill in all the required fields.");
-            return;
-        }
-        // Create a table row with the entered data
-        const tableRow = document.createElement("tr");
-        tableRow.innerHTML = `
-                            <td>${GradeName}</td>
-                            <td>${MaterialType}</td>
-                            <td>${QualityCode}</td>
-        `;
-
-        // Append the row to the table
-        document.getElementById("GradeTableBody").appendChild(tableRow);
-
-        // Close the modal
-        $('#addGradeModal').modal('hide');
-
-        // Clear the form fields
-        document.getElementById("GradeForm").reset();
-        // Save the Grade entry to Local Storage
-        saveGradeEntryToLocalStorage(GradeName, MaterialType, QualityCode);
-    }
-
-    // Function to save Grade entry to Local Storage
-    function saveGradeEntryToLocalStorage(GradeName, MaterialType, QualityCode) {
-        // Get existing entries from Local Storage or initialize an empty array
-        let GradeEntries = JSON.parse(localStorage.getItem("GradeEntries")) || [];
-
-        // Add the new entry to the array
-        GradeEntries.push({
-            GradeName,
-            MaterialType,
-            QualityCode
-        });
-
-        // Save the updated array back to Local Storage
-        localStorage.setItem("GradeEntries", JSON.stringify(GradeEntries));
-    }
-
-    // Function to load Grade entries from Local Storage
-    function loadGradeEntriesFromLocalStorage() {
-        const GradeEntries = JSON.parse(localStorage.getItem("GradeEntries")) || [];
-
-        // Loop through the entries and add them to the table
-        GradeEntries.forEach(entry => {
-            const tableRow = document.createElement("tr");
-            // Create a unique ID for each checkbox based on the Grade name
-            const checkboxId = `checkbox-${entry.GradeName.replace(/ /g, "_")}`;
-
-            tableRow.innerHTML = `
-                                    <td><input type="checkbox" id="${checkboxId}" onchange="handleCheckboxChange(this)"></td>
-                                    <td>${entry.GradeName}</td>
-                                    <td>${entry.MaterialType}</td>
-                                    <td>${entry.QualityCode}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editGradeModal" onclick="editGradeEntry(this.parentNode.parentNode)">Edit</button>
-                                        <button class="btn btn-sm btn-danger" onclick="deleteGradeEntry(this)">Delete</button>
-                                    </td>
-            `;
-            document.getElementById("GradeTableBody").appendChild(tableRow);
-        });
-    }
-
-    // Function to handle checkbox change
-    function handleCheckboxChange(checkbox) {
-        if (checkbox.checked) {
-            // Get the unique ID of the checked checkbox
-            const checkboxId = checkbox.id;
-            console.log(`Selected checkbox with ID: ${checkboxId}`);
-        }
-    }
-
-    // Load Grade entries from Local Storage when the page loads
-    loadGradeEntriesFromLocalStorage();
-
-    function editGradeEntry(row) {
-
-        // Extract the Grade ID from the row
-        const GradeName = row.cells[0].textContent;
-
-        // Find the corresponding Grade entry in Local Storage or your data source
-        const GradeEntries = JSON.parse(localStorage.getItem("GradeEntries")) || [];
-        const GradeRoEdit = GradeEntries.find(entry => entry.GradeName === GradeName);
-
-        // Check if a matching Grade entry was found
-        if (GradeRoEdit) {
-            // Pre-fill the edit modal form fields with the data
-            document.getElementById("editGradeName").value = GradeRoEdit.GradeName;
-            document.getElementById("editMaterialType").value = GradeRoEdit.MaterialType;
-            document.getElementById("editQualityCode").value = GradeRoEdit.QualityCode;
-            // Show the edit modal
-            $('#editGradeModal').modal('show');
-        } else {
-            alert("Grade entry not found for editing.");
-        }
-    }
-
-    function updateGradeEntry() {
-        // Get form values from the edit modal
-        const editGradeName = document.getElementById("editGradeName").value;
-        const editMaterialType = document.getElementById("editMaterialType").value;
-        const editQualityCode = document.getElementById("editQualityCode").value;
-        // Find the row in the table with the matching Grade
-        const table = document.getElementById("GradeTableBody");
-        for (let i = 0; i < table.rows.length; i++) {
-            if (table.rows[i].cells[0].textContent === editGradeName) {
-                // Update all cells in the row with the new data
-                table.rows[i].cells[1].textContent = editMaterialType;
-                table.rows[i].cells[2].textContent = editQualityCode;
-                // Update Local Storage by finding and updating the corresponding entry
-                const GradeEntries = JSON.parse(localStorage.getItem("GradeEntries")) || [];
-                for (let j = 0; j < GradeEntries.length; j++) {
-                    if (GradeEntries[j].GradeName === editGradeName) {
-                        GradeEntries[j].MaterialType = editMaterialType;
-                        GradeEntries[j].QualityCode = editQualityCode;
-                        break; // Exit the loop once updated
+                    var dt = {
+                            a_tax_name  : f_tax_name,
+                            a_tax_rate  : f_tax_rate,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
                     }
+                    // console.log(dt);
+                    $.ajax({
+                        type: 'put',
+                        data: dt,
+                        url: "{{ url('tax/update') }}",
+                        success: function(response) {
+                            $('#addDetailsModal').modal('hide');
+                            loadDataTable();
+                            showSuccessMessage('Record is Updated.')
+                        },
+                        error: function(response) {
+                            console.log('Error:', response);
+                        }
+                    })
+                    return false;
                 }
+            })
 
-                localStorage.setItem("GradeEntries", JSON.stringify(GradeEntries));
+            // Delete part
+            $('#tblData').on('click', '#btnDeleteData', function() {
+                var recordId = $(this).data('id');
+                // console.log('Delete button clicked for record ID: ' + recordId);
+                $('#deleteRecordModal').modal('show');
 
-                // Close the edit modal
-                $('#editGradeModal').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: "tax/delete/" + recordId,
+                    success: function(response) {
+                        // console.log(response);
+                        $('#sl_no_tax').val(response.record.id);
+                    }
+                });
+            });
 
-                // Clear the form fields in the edit modal
-                document.getElementById("editGradeName").value = "";
-                document.getElementById("editMaterialType").value = "";
-                document.getElementById("editQualityCode").value = "";
-                break;
-            }
-        }
-    }
+            $("#btnDelete").click(function(event) {
+                event.preventDefault();
+                var f_tax_status    = $('#tax_status').val();
+                var f_sl_no         = $('#sl_no_tax').val();
 
-    function deleteGradeEntry(buttonElement) {
-        // Get the row containing the button
-        const row = buttonElement.parentNode.parentNode;
+                var dt = {
+                    a_tax_status    : f_tax_status,
+                    a_sl_no         : f_sl_no,
+                    _token          : "{{ csrf_token() }}"
+                }
+                // console.log(dt);
+                $.ajax({
+                    type: 'put',
+                    data: dt,
+                    url: "{{ url('tax/delete') }}",
+                    success: function(response) {
+                        $('#deleteRecordModal').modal('hide');
+                        loadDataTable();
+                        showSuccessMessage('Record is Deleted.')
+                    },
+                    error: function(response) {
+                        console.log('Error:', response);
+                    }
+                })
+            })
 
-        // Confirm the deletion with a confirmation dialog
-        const confirmation = confirm("Are you sure you want to delete this Grade entry?");
-        if (confirmation) {
-            // Remove the row from the table
-            row.remove();
-
-            // Update Local Storage by removing the deleted entry
-            const GradeNameToDelete = row.querySelector("td:first-child").textContent; // Get the Grade ID from the first cell
-            const GradeEntries = JSON.parse(localStorage.getItem("GradeEntries")) || [];
-            const updatedGradeEntries = GradeEntries.filter(entry => entry.GradeName !== GradeNameToDelete);
-            localStorage.setItem("GradeEntries", JSON.stringify(updatedGradeEntries));
-        }
-    }
-
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
         });
-    });
-
-</script>
+    </script>
 @endsection
