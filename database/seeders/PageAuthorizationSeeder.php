@@ -118,15 +118,6 @@ class PageAuthorizationSeeder extends Seeder
         ]);
 
         PageAuthorization::create([
-            'role_id'           => 2,
-            'page_id'           => 12,
-            'creator_id'        => 'Admin',
-            'create_date_time'  => $nowTime,
-            'modifier_id'       => 'Admin',
-            'modify_date_time'  => $nowTime,
-        ]);
-
-        PageAuthorization::create([
             'role_id'           => 3,
             'page_id'           => 4,
             'creator_id'        => 'Admin',

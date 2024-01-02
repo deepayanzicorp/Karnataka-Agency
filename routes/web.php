@@ -7,6 +7,11 @@ use App\Http\Controllers\allUsers\companyDetails\CompanyDetailsController;
 use App\Http\Controllers\allUsers\BuyerMasters\BuyerMasterController;
 use App\Http\Controllers\allUsers\SellerMasters\SellerMasterController;
 use App\Http\Controllers\allUsers\ProductCategoryMasters\ProductCategoryMasterController;
+use App\Http\Controllers\allUsers\ThicknessMasters\ThicknessMasterController;
+use App\Http\Controllers\allUsers\WidthMasters\WidthMasterController;
+use App\Http\Controllers\allUsers\GradeMasters\GradeMasterController;
+use App\Http\Controllers\allUsers\LengthMasters\LengthMasterController;
+use App\Http\Controllers\allUsers\ItemMasters\ItemMasterController;
 use App\Http\Controllers\allUsers\TaxMasters\TaxMasterController;
 use App\Http\Controllers\allUsers\PlantMasters\PlantMasterController;
 
@@ -53,8 +58,11 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
     Route::get('channel-partner', [AllUsersController::class, 'channelPartner'])->name('allUsers.channelPartner');
     Route::get('seller', [AllUsersController::class, 'sellerMaster'])->name('allUsers.sellerMaster');
     Route::get('buyer', [AllUsersController::class, 'buyerMaster'])->name('allUsers.buyerMaster');
-    Route::get('grade', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
     Route::get('product-category', [AllUsersController::class, 'productCategoryMaster'])->name('allUsers.productCategoryMaster');
+    Route::get('thickness', [AllUsersController::class, 'thicknessMaster'])->name('allUsers.thicknessMaster');
+    Route::get('width', [AllUsersController::class, 'widthMaster'])->name('allUsers.widthMaster');
+    Route::get('grade', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
+    Route::get('length', [AllUsersController::class, 'lengthMaster'])->name('allUsers.lengthMaster');
     Route::get('item', [AllUsersController::class, 'itemMaster'])->name('allUsers.itemMaster');
     Route::get('tax', [AllUsersController::class, 'taxMaster'])->name('allUsers.taxMaster');
     Route::get('plant', [AllUsersController::class, 'plantMaster'])->name('allUsers.plantMaster');
@@ -117,6 +125,36 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::put('deleteShipping', [SellerMasterController::class, 'destroyShipping'])->name('deleteShipping');
     });
 
+    // Product-Category Master
+    Route::group(['prefix' => 'product-category', 'namespace' => 'ProductCategoryMasters', 'as' => 'productcategoryMaster.'], function(){
+        Route::get('list', [ProductCategoryMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [ProductCategoryMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [ProductCategoryMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [ProductCategoryMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ProductCategoryMasterController::class, 'edit']);
+        Route::put('delete', [ProductCategoryMasterController::class, 'destroy'])->name('delete');
+    });
+
+    // Thickness Master
+    Route::group(['prefix' => 'thickness', 'namespace' => 'ThicknessMasters', 'as' => 'thicknessMaster.'], function(){
+        Route::get('list', [ThicknessMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [ThicknessMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [ThicknessMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [ThicknessMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ThicknessMasterController::class, 'edit']);
+        Route::put('delete', [ThicknessMasterController::class, 'destroy'])->name('delete');
+    });
+
+    // Width Master
+    Route::group(['prefix' => 'width', 'namespace' => 'WidthMasters', 'as' => 'widthMaster.'], function(){
+        Route::get('list', [WidthMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [WidthMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [WidthMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [WidthMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [WidthMasterController::class, 'edit']);
+        Route::put('delete', [WidthMasterController::class, 'destroy'])->name('delete');
+    });
+
     // Grade Master
     Route::group(['prefix' => 'grade', 'namespace' => 'GradeMasters', 'as' => 'gradeMaster.'], function(){
         Route::get('list', [GradeMasterController::class, 'list'])->name('list');        
@@ -127,14 +165,24 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::put('delete', [GradeMasterController::class, 'destroy'])->name('delete');
     });
 
-    // Product-Category Master
-    Route::group(['prefix' => 'product-category', 'namespace' => 'ProductCategoryMasters', 'as' => 'productcategoryMaster.'], function(){
-        Route::get('list', [ProductCategoryMasterController::class, 'list'])->name('list');        
-        Route::post('insert', [ProductCategoryMasterController::class, 'insert'])->name('insert');
-        Route::get('edit/{id}', [ProductCategoryMasterController::class, 'edit'])->name('edit');
-        Route::put('update', [ProductCategoryMasterController::class, 'update'])->name('update');
-        Route::get('delete/{id}', [ProductCategoryMasterController::class, 'edit']);
-        Route::put('delete', [ProductCategoryMasterController::class, 'destroy'])->name('delete');
+    // Length Master
+    Route::group(['prefix' => 'length', 'namespace' => 'LengthMasters', 'as' => 'lengthMaster.'], function(){
+        Route::get('list', [LengthMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [LengthMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [LengthMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [LengthMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [LengthMasterController::class, 'edit']);
+        Route::put('delete', [LengthMasterController::class, 'destroy'])->name('delete');
+    });
+
+    // Item Master
+    Route::group(['prefix' => 'item', 'namespace' => 'ItemMasters', 'as' => 'itemMaster.'], function(){
+        Route::get('list', [ItemMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [ItemMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [ItemMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [ItemMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ItemMasterController::class, 'edit']);
+        Route::put('delete', [ItemMasterController::class, 'destroy'])->name('delete');
     });
 
     // Tax Master

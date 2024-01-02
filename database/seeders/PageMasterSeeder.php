@@ -63,17 +63,6 @@ class PageMasterSeeder extends Seeder
         ]);
 
         PageMaster::create([
-            'page_name'             => 'Grade',
-            'page_url'              => 'grade',
-            'page_icon'             => 'fa fa-file',
-            'page_status'           => 'Active',
-            'creator_id'            => 'Admin',
-            'create_date_time'      => $nowTime,
-            'modifier_id'           => 'Admin',
-            'modify_date_time'      => $nowTime,
-        ]);
-
-        PageMaster::create([
             'page_name'             => 'Product Category',
             'page_url'              => 'product-category',
             'page_icon'             => 'fa fa-bars',

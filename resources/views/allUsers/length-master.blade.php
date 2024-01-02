@@ -32,11 +32,11 @@
                                 <table class="table table-bordered table-striped table-sm table-hover" id="tblData">
                                     <thead class="TableHeadTheme">
                                         <tr>
-                                            <th style="width: 60px;">Actions</th>
+                                            {{-- <th style="width: 60px;">Actions</th>
                                             <th>Created At</th>
-                                            <th>Grade</th>
-                                            <th>Material Type</th>
-                                            <th>Quality Code</th>
+                                            <th>Category(COIL|CUT)</th>
+                                            <th>Length(mm)</th>
+                                            <th>Type CR|HR</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -62,28 +62,48 @@
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
                                                                     <label>SL No</label>
-                                                                    <input class="form-control form-control-sm" id="sl_no_grade" name="sl_no_grade" type="text" disabled>
+                                                                    <input class="form-control form-control-sm" id="sl_no_length" name="sl_no_length" type="text" disabled>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-12">
+                                                            <div class=col-md-4>
                                                                 <div class="form-group">
-                                                                    <label>Grade</label>
-                                                                    <input class="form-control form-control-sm" id="grade_name" name="grade_name" type="text">
+                                                                    <label>Length Type</label>
+                                                                    <div>
+                                                                        <select class="form-control-dropdown js-example-basic-single form-control-sm" id="length_type" name="length_type" style="width: 100%">
+                                                                            <option value="0">--Choose--</option>
+                                                                            <option value="COIL">COIL</option>
+                                                                            <option value="CUT">CUT Length</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class=col-md-4>
                                                                 <div class="form-group">
                                                                     <label>Material Type</label>
-                                                                    <input class="form-control form-control-sm" id="grade_material_type" name="grade_material_type" type="text">
+                                                                    <div>
+                                                                        <select class="form-control-dropdown js-example-basic-single form-control-sm" id="length_material" name="length_material" style="width: 100%">
+                                                                            <option value="0">--Choose--</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="CR">CR</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Quality Code</label>
-                                                                    <input class="form-control form-control-sm" id="grade_quality_code" name="grade_quality_code" type="text">
+                                                                    <label>Measurment</label>
+                                                                    <input class="form-control form-control-sm" id="length_measurement" name="length_measurement" type="text" runat="server"
+                                                                    pattern="\d+(\.\d{1,2})?" title="Enter a valid number with up to two decimal places"
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+
+                                                                    <div>
+                                                                        <p><strong>Note:</strong></p>
+                                                                        <p class="m-0">CR = 2.5 - 3.2 mm</p>
+                                                                        <p class="m-0">HR = 2.5 - 12 mm</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -135,35 +155,48 @@
 
 @section('scripts')
     <script>
-        var gradeId;
+        var widthId;
         $(document).ready(function() {
             
             // Check validation
-            function checkInputDataValidation(){
-                let valGradeName            = $("#grade_name").val();
-                let valGradeMaterialType    = $("#grade_material_type").val();
-                let valGradeQualityCode     = $("#grade_quality_code").val();
+            function checkInputDataValidation() {
+                let valLengthType           = $("#length_type").val();
+                let valLengthMaterial       = $("#length_material").val();
+                let valLengthMeasurement    = $("#length_measurement").val();
 
-                if (valGradeName.length < 3 || valGradeName.length > 150) {
-                    $("#grade_name").focus().select();
-                    showMessage('Grade Name should be between 3 and 150 characters');                    
-                    return false;
-                } 
-                
-                if (valGradeMaterialType.length < 3 || valGradeMaterialType.length > 50) {
-                    $("#grade_material_type").focus().select();
-                    showMessage('Material Type should be between 3 and 50 characters');                    
-                    return false;
-                } 
-
-                if (valGradeQualityCode.length < 3 || valGradeQualityCode.length > 50) {
-                    $("#grade_quality_code").focus().select();
-                    showMessage('Quality Code should be between 3 and 50 characters');                    
+                if (valLengthType == 0 || valLengthType == null) {                   
+                    showMessage('Select length type')                    
                     return false;
                 }
-                   
-                return true;          
+
+                if (valLengthMaterial == 'CR') {
+                    if (valLengthMeasurement < 2.5 || valLengthMeasurement > 3.2) {
+                        $("#length_measurement").focus().select();
+                        showMessage('Length should be between 2.5 to 3.2');
+                        return false;
+                    }
+                } else if (valLengthMaterial == 'HR') {
+                    if (valLengthMeasurement < 2.5 || valLengthMeasurement > 12) {
+                        $("#width").focus().select();
+                        showMessage('Length should be between 2.5 to 12');
+                        return false;
+                    }
+                } else {
+                    showMessage('Select valid Thickness type category');
+                    return false;
+                }
+
+                return true;
             }
+
+            // Select2 dropdown
+            $('#length_type').select2({
+                dropdownParent: $('#addDetailsModal')
+            });
+
+            $('#length_material').select2({
+                dropdownParent: $('#addDetailsModal')
+            });
 
             // To load add & edit forms
             $('#addDetailsBtn').on('click', function() {
@@ -186,19 +219,19 @@
                     "paging"    : true,
                     "pageLength": 10,
                     "ajax"      : {
-                        "url": "grade/list",
+                        "url": "width/list",
                         "dataSrc": "list"
                     },
                     "columns"   : [{
                             "data"  : null,
                             "render": function(data, type, row) {
-                                gradeId = row.id; // Store the Seller id in a variable
+                                widthId = row.id; // Store the Seller id in a variable
                                 return '<div class="d-flex">' +
                                             '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
-                                            gradeId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+                                            widthId + '"><i class="fas fa-solid fa-pen"></i></button>' +
 
                                             '<button type="button" id="btnDeleteData" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
-                                            gradeId +
+                                            widthId +
                                             '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
                                         '</div>';
                             }
@@ -210,13 +243,10 @@
                             }
                         },
                         {
-                            "data"  : "grade_name"
+                            "data"  : "width"
                         },
                         {
-                            "data"  : "grade_material_type"
-                        },
-                        {
-                            "data"  : "grade_quality_code"
+                            "data"  : "width_cat"
                         }
                         // Add more columns as needed
                     ],
@@ -246,23 +276,21 @@
                 if(!checkInputDataValidation()){
                     return true;
                 }else{
-                    var f_grade_name                = $('#grade_name').val();
-                    var f_grade_material_type       = $('#grade_material_type').val();
-                    var f_grade_quality_code        = $('#grade_quality_code').val();
-                    var f_sl_no                     = $('#sl_no_grade').val();
+                    var f_width         = $('#width').val();
+                    var f_width_cat     = $('#width_cat').val();
+                    var f_sl_no         = $('#sl_no_length').val();
 
                     var dt = {
-                            a_grade_name            : f_grade_name,
-                            a_grade_material_type   : f_grade_material_type,
-                            a_grade_quality_code    : f_grade_quality_code,
-                            a_sl_no                 : f_sl_no,
-                            _token                  : "{{ csrf_token() }}"
+                            a_width     : f_width,
+                            a_width_cat : f_width_cat,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
                         type: 'POST',
                         data: dt,
-                        url: "{{ url('grade/insert') }}",
+                        url: "{{ url('width/insert') }}",
 
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
@@ -292,12 +320,11 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "grade/edit/" + recordId,
+                    url: "width/edit/" + recordId,
                     success: function(response) {
-                        $('#grade_name').val(response.record.grade_name);
-                        $('#grade_material_type').val(response.record.grade_material_type);
-                        $('#grade_quality_code').val(response.record.grade_quality_code);
-                        $('#sl_no_grade').val(response.record.id);
+                        $('#width').val(response.record.width);
+                        $('#width_cat').val(response.record.width_cat).trigger('change');
+                        $('#sl_no_length').val(response.record.id);
                         console.log(response);
                     }
                 });
@@ -309,23 +336,21 @@
                 if(!checkInputDataValidation()) {
                     return true;
                 } else {
-                    var f_grade_name                = $('#grade_name').val();
-                    var f_grade_material_type       = $('#grade_material_type').val();
-                    var f_grade_quality_code        = $('#grade_quality_code').val();
-                    var f_sl_no                     = $('#sl_no_grade').val();
+                    var f_width         = $('#width').val();
+                    var f_width_cat     = $('#width_cat').val();
+                    var f_sl_no         = $('#sl_no_length').val();
 
                     var dt = {
-                            a_grade_name            : f_grade_name,
-                            a_grade_material_type   : f_grade_material_type,
-                            a_grade_quality_code    : f_grade_quality_code,
-                            a_sl_no                 : f_sl_no,
-                            _token                  : "{{ csrf_token() }}"
+                            a_width     : f_width,
+                            a_width_cat : f_width_cat,
+                            a_sl_no     : f_sl_no,
+                            _token      : "{{ csrf_token() }}"
                     }
                     // console.log(dt);
                     $.ajax({
                         type: 'PUT',
                         data: dt,
-                        url: "{{ url('grade/update') }}",
+                        url: "{{ url('width/update') }}",
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
                             loadDataTable();
@@ -347,21 +372,21 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "grade/delete/" + recordId,
+                    url: "width/delete/" + recordId,
                     success: function(response) {
                         // console.log(response);
-                        $('#sl_no_grade').val(response.record.id);
+                        $('#sl_no_length').val(response.record.id);
                     }
                 });
             });
 
             $("#btnDelete").click(function(event) {
                 event.preventDefault();
-                var f_grade_status  = $('#grade_status').val();
-                var f_sl_no         = $('#sl_no_grade').val();
+                var f_width_status  = $('#width_status').val();
+                var f_sl_no         = $('#sl_no_length').val();
 
                 var dt = {
-                    a_grade_status  : f_grade_status,
+                    a_width_status  : f_width_status,
                     a_sl_no         : f_sl_no,
                     _token          : "{{ csrf_token() }}"
                 }
@@ -369,7 +394,7 @@
                 $.ajax({
                     type: 'PUT',
                     data: dt,
-                    url: "{{ url('grade/delete') }}",
+                    url: "{{ url('width/delete') }}",
                     success: function(response) {
                         $('#deleteRecordModal').modal('hide');
                         loadDataTable();

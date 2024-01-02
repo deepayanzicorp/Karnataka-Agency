@@ -34,9 +34,9 @@
                                         <tr>
                                             <th style="width: 60px;">Actions</th>
                                             <th>Created At</th>
-                                            <th>Grade</th>
-                                            <th>Material Type</th>
-                                            <th>Quality Code</th>
+                                            <th>Type CR|HR</th>
+                                            <th>Range</th>
+                                            <th>Type sheet|plate</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -62,28 +62,48 @@
                                                             <div class="col-md-12" hidden>
                                                                 <div class="form-group">
                                                                     <label>SL No</label>
-                                                                    <input class="form-control form-control-sm" id="sl_no_grade" name="sl_no_grade" type="text" disabled>
+                                                                    <input class="form-control form-control-sm" id="sl_no_thickness" name="sl_no_thickness" type="text" disabled>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label>Grade</label>
-                                                                    <input class="form-control form-control-sm" id="grade_name" name="grade_name" type="text">
+                                                                    <label>Range</label>
+                                                                    <input class="form-control form-control-sm" id="thickness_range" name="thickness_range" type="text" runat="server"
+                                                                    pattern="\d+(\.\d{1,2})?" title="Enter a valid number with up to two decimal places"
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+
+                                                                    <div>
+                                                                        <p><strong>Note:</strong></p>
+                                                                        <p class="m-0">CR = 0.8-2.0 sheet</p>
+                                                                        <p class="m-0">HR = 2.50-4.00 sheet 5.00-20 plate</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class=col-md-4>
                                                                 <div class="form-group">
-                                                                    <label>Material Type</label>
-                                                                    <input class="form-control form-control-sm" id="grade_material_type" name="grade_material_type" type="text">
+                                                                    <label>Type</label>
+                                                                    <div>
+                                                                        <select class="form-control-dropdown js-example-basic-single form-control-sm" id="thickness_type_cat" name="thickness_type_cat" style="width: 100%">
+                                                                            <option value="0">CR|HR Choose--</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="CR">CR</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class=col-md-4>
                                                                 <div class="form-group">
-                                                                    <label>Quality Code</label>
-                                                                    <input class="form-control form-control-sm" id="grade_quality_code" name="grade_quality_code" type="text">
+                                                                    <label>Thickness Type</label>
+                                                                    <div>
+                                                                        <select class="form-control-dropdown js-example-basic-single form-control-sm" id="thickness_type" name="thickness_type" style="width: 100%">
+                                                                            <option value="0">Sheet|Plate Choose--</option>
+                                                                            <option value="Sheet">Sheet</option>
+                                                                            <option value="Plate">Plate</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -135,35 +155,48 @@
 
 @section('scripts')
     <script>
-        var gradeId;
+        var thicknessId;
         $(document).ready(function() {
             
             // Check validation
-            function checkInputDataValidation(){
-                let valGradeName            = $("#grade_name").val();
-                let valGradeMaterialType    = $("#grade_material_type").val();
-                let valGradeQualityCode     = $("#grade_quality_code").val();
+            function checkInputDataValidation() {
+                let valThicknessRange   = $("#thickness_range").val();
+                let valThicknessTypeCat = $("#thickness_type_cat").val();
+                let valThicknessType    = $("#thickness_type").val();
 
-                if (valGradeName.length < 3 || valGradeName.length > 150) {
-                    $("#grade_name").focus().select();
-                    showMessage('Grade Name should be between 3 and 150 characters');                    
-                    return false;
-                } 
-                
-                if (valGradeMaterialType.length < 3 || valGradeMaterialType.length > 50) {
-                    $("#grade_material_type").focus().select();
-                    showMessage('Material Type should be between 3 and 50 characters');                    
-                    return false;
-                } 
-
-                if (valGradeQualityCode.length < 3 || valGradeQualityCode.length > 50) {
-                    $("#grade_quality_code").focus().select();
-                    showMessage('Quality Code should be between 3 and 50 characters');                    
+                if (valThicknessTypeCat == 'CR') {
+                    if (valThicknessRange < 0.8 || valThicknessRange > 2) {
+                        $("#thickness_range").focus().select();
+                        showMessage('Range should be between 0.8 to 2');
+                        return false;
+                    }
+                } else if (valThicknessTypeCat == 'HR') {
+                    if (valThicknessRange < 2.5 || (valThicknessRange > 4 && valThicknessRange < 5) || valThicknessRange > 20) {
+                        $("#thickness_range").focus().select();
+                        showMessage('Range should be between 2.5 to 4 & Range should be between 5 to 20');
+                        return false;
+                    }
+                } else {
+                    showMessage('Select valid Thickness type category');
                     return false;
                 }
-                   
-                return true;          
+
+                if (valThicknessType == 0 || valThicknessType == null) {
+                    showMessage('Select Thickness type');
+                    return false;
+                }
+
+                return true;
             }
+
+            // Select2 dropdown
+            $('#thickness_type_cat').select2({
+                dropdownParent: $('#addDetailsModal')
+            });
+
+            $('#thickness_type').select2({
+                dropdownParent: $('#addDetailsModal')
+            });
 
             // To load add & edit forms
             $('#addDetailsBtn').on('click', function() {
@@ -186,19 +219,19 @@
                     "paging"    : true,
                     "pageLength": 10,
                     "ajax"      : {
-                        "url": "grade/list",
+                        "url": "thickness/list",
                         "dataSrc": "list"
                     },
                     "columns"   : [{
                             "data"  : null,
                             "render": function(data, type, row) {
-                                gradeId = row.id; // Store the Seller id in a variable
+                                thicknessId = row.id; // Store the Seller id in a variable
                                 return '<div class="d-flex">' +
                                             '<button type="button" id="btnEdit" class="btn btn-outline-primary btn-sm editRecordBtn" data-id="' +
-                                            gradeId + '"><i class="fas fa-solid fa-pen"></i></button>' +
+                                            thicknessId + '"><i class="fas fa-solid fa-pen"></i></button>' +
 
                                             '<button type="button" id="btnDeleteData" class="btn btn-outline-danger btn-sm deleteRecordBtn" data-id="' +
-                                            gradeId +
+                                            thicknessId +
                                             '" style="margin-left: 10px;"><i class="fas fa-solid fa-trash"></i></button>' +
                                         '</div>';
                             }
@@ -210,13 +243,13 @@
                             }
                         },
                         {
-                            "data"  : "grade_name"
+                            "data"  : "thickness_range"
                         },
                         {
-                            "data"  : "grade_material_type"
+                            "data"  : "thickness_type_cat"
                         },
                         {
-                            "data"  : "grade_quality_code"
+                            "data"  : "thickness_type"
                         }
                         // Add more columns as needed
                     ],
@@ -246,15 +279,15 @@
                 if(!checkInputDataValidation()){
                     return true;
                 }else{
-                    var f_grade_name                = $('#grade_name').val();
-                    var f_grade_material_type       = $('#grade_material_type').val();
-                    var f_grade_quality_code        = $('#grade_quality_code').val();
-                    var f_sl_no                     = $('#sl_no_grade').val();
+                    var f_thickness_range           = $('#thickness_range').val();
+                    var f_thickness_type_cat        = $('#thickness_type_cat').val();
+                    var f_thickness_type            = $('#thickness_type').val();
+                    var f_sl_no                     = $('#sl_no_thickness').val();
 
                     var dt = {
-                            a_grade_name            : f_grade_name,
-                            a_grade_material_type   : f_grade_material_type,
-                            a_grade_quality_code    : f_grade_quality_code,
+                            a_thickness_range       : f_thickness_range,
+                            a_thickness_type_cat    : f_thickness_type_cat,
+                            a_thickness_type        : f_thickness_type,
                             a_sl_no                 : f_sl_no,
                             _token                  : "{{ csrf_token() }}"
                     }
@@ -262,7 +295,7 @@
                     $.ajax({
                         type: 'POST',
                         data: dt,
-                        url: "{{ url('grade/insert') }}",
+                        url: "{{ url('thickness/insert') }}",
 
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
@@ -292,12 +325,12 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "grade/edit/" + recordId,
+                    url: "thickness/edit/" + recordId,
                     success: function(response) {
-                        $('#grade_name').val(response.record.grade_name);
-                        $('#grade_material_type').val(response.record.grade_material_type);
-                        $('#grade_quality_code').val(response.record.grade_quality_code);
-                        $('#sl_no_grade').val(response.record.id);
+                        $('#thickness_range').val(response.record.thickness_range);
+                        $('#thickness_type_cat').val(response.record.thickness_type_cat).trigger('change');
+                        $('#thickness_type').val(response.record.thickness_type).trigger('change');
+                        $('#sl_no_thickness').val(response.record.id);
                         console.log(response);
                     }
                 });
@@ -309,15 +342,15 @@
                 if(!checkInputDataValidation()) {
                     return true;
                 } else {
-                    var f_grade_name                = $('#grade_name').val();
-                    var f_grade_material_type       = $('#grade_material_type').val();
-                    var f_grade_quality_code        = $('#grade_quality_code').val();
-                    var f_sl_no                     = $('#sl_no_grade').val();
+                    var f_thickness_range           = $('#thickness_range').val();
+                    var f_thickness_type_cat        = $('#thickness_type_cat').val();
+                    var f_thickness_type            = $('#thickness_type').val();
+                    var f_sl_no                     = $('#sl_no_thickness').val();
 
                     var dt = {
-                            a_grade_name            : f_grade_name,
-                            a_grade_material_type   : f_grade_material_type,
-                            a_grade_quality_code    : f_grade_quality_code,
+                            a_thickness_range       : f_thickness_range,
+                            a_thickness_type_cat    : f_thickness_type_cat,
+                            a_thickness_type        : f_thickness_type,
                             a_sl_no                 : f_sl_no,
                             _token                  : "{{ csrf_token() }}"
                     }
@@ -325,7 +358,7 @@
                     $.ajax({
                         type: 'PUT',
                         data: dt,
-                        url: "{{ url('grade/update') }}",
+                        url: "{{ url('thickness/update') }}",
                         success: function(response) {
                             $('#addDetailsModal').modal('hide');
                             loadDataTable();
@@ -347,29 +380,29 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "grade/delete/" + recordId,
+                    url: "thickness/delete/" + recordId,
                     success: function(response) {
                         // console.log(response);
-                        $('#sl_no_grade').val(response.record.id);
+                        $('#sl_no_thickness').val(response.record.id);
                     }
                 });
             });
 
             $("#btnDelete").click(function(event) {
                 event.preventDefault();
-                var f_grade_status  = $('#grade_status').val();
-                var f_sl_no         = $('#sl_no_grade').val();
+                var f_thickness_status  = $('#thickness_status').val();
+                var f_sl_no             = $('#sl_no_thickness').val();
 
                 var dt = {
-                    a_grade_status  : f_grade_status,
-                    a_sl_no         : f_sl_no,
-                    _token          : "{{ csrf_token() }}"
+                    a_thickness_status  : f_thickness_status,
+                    a_sl_no             : f_sl_no,
+                    _token              : "{{ csrf_token() }}"
                 }
                 // console.log(dt);
                 $.ajax({
                     type: 'PUT',
                     data: dt,
-                    url: "{{ url('grade/delete') }}",
+                    url: "{{ url('thickness/delete') }}",
                     success: function(response) {
                         $('#deleteRecordModal').modal('hide');
                         loadDataTable();
