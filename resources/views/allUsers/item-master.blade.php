@@ -25,7 +25,7 @@
                                                         <li><a class="dropdown-item" href="{{ route('allUsers.widthMaster') }}">Width</a></li>
                                                         <li><a class="dropdown-item" href="{{ route('allUsers.gradeMaster') }}">Grade</a></li>
                                                         <li><a class="dropdown-item" href="{{ route('allUsers.lengthMaster') }}">Length</a></li>
-                                                        <li><a class="dropdown-item" href="">Size</a></li>
+                                                        <li><a class="dropdown-item" href="{{ route('allUsers.sizeMaster') }}">Size</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

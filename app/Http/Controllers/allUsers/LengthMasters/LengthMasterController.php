@@ -25,7 +25,7 @@ class LengthMasterController extends Controller
 
     public function list(Request $request){
         $modelObj   = new LengthMaster;
-        $queryObj   = $modelObj::where('width_status', 'Active');
+        $queryObj   = $modelObj::where('length_status', 'Active');
         if($queryObj->count() > 0){
             $arrDetails     = $queryObj->get()->toArray();
             $data['list']   = $arrDetails; //echo '<pre>'; print_r($arrDetails); die();
@@ -41,12 +41,14 @@ class LengthMasterController extends Controller
     public function insert(Request $request){
         $nowTime    = Carbon::now();
         $insert     = [
-            ''             => $request->a_,
+            'length_type'           => $request->a_length_type,
+            'length_material'       => $request->a_length_material,
+            'length_measurement'    => $request->a_length_measurement,
 
-            'create_date_time'  => $nowTime,
-            'modify_date_time'  => $nowTime,    
-            'created_at'        => $nowTime,    
-            'updated_at'        => $nowTime 
+            'create_date_time'      => $nowTime,
+            'modify_date_time'      => $nowTime,    
+            'created_at'            => $nowTime,    
+            'updated_at'            => $nowTime 
         ];
 
         $add = LengthMaster::create($insert);
@@ -63,6 +65,85 @@ class LengthMasterController extends Controller
                 'status'    => 'ok',
                 'success'   => false,
                 'message'   => 'Record created failed!'
+            ];
+            return $response;
+        }
+    }
+
+     /*______________________________________________________________________
+            
+        # Display Record in modal                        
+    ______________________________________________________________________*/
+
+    public function edit($id){
+        $record = LengthMaster::find($id); //echo "<pre>"; print_r($record); die();
+        return response()->json([
+            'status' => 200,
+            'record' => $record,
+        ]);
+    }
+
+    /*______________________________________________________________________
+            
+        # Update Record in modal                        
+    ______________________________________________________________________*/
+
+    public function update(Request $request){
+        $nowTime    = Carbon::now();
+        $update     = [
+            'length_type'           => $request->a_length_type,
+            'length_material'       => $request->a_length_material,
+            'length_measurement'    => $request->a_length_measurement,
+
+            'modify_date_time'      => $nowTime,     
+            'updated_at'            => $nowTime 
+
+        ];
+
+        $edit = LengthMaster::where('id', $request->a_sl_no)->update($update);
+
+        if($edit){
+            $response = [
+                'status'    => 'ok',
+                'success'   => true,
+                'message'   => 'Record updated succesfully!'
+            ];
+            return $response;
+        }else{
+            $response = [
+                'status'    => 'ok',
+                'success'   => false,
+                'message'   => 'Record updated failed!'
+            ];
+            return $response;
+        }
+    }
+
+    /*______________________________________________________________________
+            
+        # Delete Record in modal                        
+    ______________________________________________________________________*/
+
+    public function destroy(Request $request){ 
+        $nowTime    = Carbon::now();        
+        $update     = [
+            'length_status' => 'Inactive'
+        ];
+
+        $delete = LengthMaster::where('id', $request->a_sl_no)->update($update);
+
+        if($delete){
+            $response = [
+                'status'    => 'ok',
+                'success'   => true,
+                'message'   => 'Record deleted succesfully!'
+            ];
+            return $response;
+        }else{
+            $response = [
+                'status'    => 'ok',
+                'success'   => false,
+                'message'   => 'Record deleted failed!'
             ];
             return $response;
         }

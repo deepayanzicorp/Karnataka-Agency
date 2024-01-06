@@ -11,6 +11,7 @@ use App\Http\Controllers\allUsers\ThicknessMasters\ThicknessMasterController;
 use App\Http\Controllers\allUsers\WidthMasters\WidthMasterController;
 use App\Http\Controllers\allUsers\GradeMasters\GradeMasterController;
 use App\Http\Controllers\allUsers\LengthMasters\LengthMasterController;
+use App\Http\Controllers\allUsers\SizeMasters\SizeMasterController;
 use App\Http\Controllers\allUsers\ItemMasters\ItemMasterController;
 use App\Http\Controllers\allUsers\TaxMasters\TaxMasterController;
 use App\Http\Controllers\allUsers\PlantMasters\PlantMasterController;
@@ -63,6 +64,7 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
     Route::get('width', [AllUsersController::class, 'widthMaster'])->name('allUsers.widthMaster');
     Route::get('grade', [AllUsersController::class, 'gradeMaster'])->name('allUsers.gradeMaster');
     Route::get('length', [AllUsersController::class, 'lengthMaster'])->name('allUsers.lengthMaster');
+    Route::get('size', [AllUsersController::class, 'sizeMaster'])->name('allUsers.sizeMaster');
     Route::get('item', [AllUsersController::class, 'itemMaster'])->name('allUsers.itemMaster');
     Route::get('tax', [AllUsersController::class, 'taxMaster'])->name('allUsers.taxMaster');
     Route::get('plant', [AllUsersController::class, 'plantMaster'])->name('allUsers.plantMaster');
@@ -173,6 +175,23 @@ Route::group(['prefix' => '', 'namespace' => 'allUsers', 'middleware' => 'allUse
         Route::put('update', [LengthMasterController::class, 'update'])->name('update');
         Route::get('delete/{id}', [LengthMasterController::class, 'edit']);
         Route::put('delete', [LengthMasterController::class, 'destroy'])->name('delete');
+    });
+
+    // Size Master
+    Route::group(['prefix' => 'size', 'namespace' => 'SizeMasters', 'as' => 'sizeMaster.'], function(){
+        Route::get('list', [SizeMasterController::class, 'list'])->name('list');        
+        Route::post('insert', [SizeMasterController::class, 'insert'])->name('insert');
+        Route::get('edit/{id}', [SizeMasterController::class, 'edit'])->name('edit');
+        Route::put('update', [SizeMasterController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [SizeMasterController::class, 'edit']);
+        Route::put('delete', [SizeMasterController::class, 'destroy'])->name('delete');
+
+        // Additional 
+        Route::get('listLength', [SizeMasterController::class, 'listLength'])->name('listLength');
+        Route::get('listWidth', [SizeMasterController::class, 'listWidth'])->name('listWidth');
+        Route::get('listThickness', [SizeMasterController::class, 'listThickness'])->name('listThickness');
+
+        Route::get('/calculate', [SizeMasterController::class, 'calculate']);
     });
 
     // Item Master
